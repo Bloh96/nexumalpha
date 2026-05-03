@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NEXUM ALPHA | Espace Membre</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--or:#C9A84C;--or2:#E8C87A;--or3:#9A7A30;--noir:#080808;--n2:#0F0F0F;--n3:#171717;--n4:#202020;--blanc:#F2EDE4;--gris:#7A7670;--vert:#1E5C3A;--vert2:#3A9E6A;--rouge:#8B2020;--rouge2:#E07070;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--noir);color:var(--blanc);font-family:'Cormorant Garamond',serif;min-height:100vh;}
+
+/* LOGIN */
+#login{position:fixed;inset:0;background:var(--noir);display:flex;align-items:center;justify-content:center;z-index:9000;flex-direction:column;}
+.login-box{background:var(--n2);border:1px solid rgba(201,168,76,.2);padding:3rem 2.5rem;width:100%;max-width:400px;text-align:center;}
+.login-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.2em;color:var(--or);margin-bottom:.3rem;}
+.login-sub{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:var(--gris);margin-bottom:2rem;}
+.login-tabs{display:flex;gap:0;margin-bottom:1.8rem;border-bottom:1px solid rgba(201,168,76,.15);}
+.ltab{flex:1;padding:.7rem;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.1em;cursor:pointer;color:var(--gris);border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .3s;text-transform:uppercase;}
+.ltab.actif{color:var(--or);border-bottom-color:var(--or);}
+.linput{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.1);color:var(--blanc);padding:.85rem 1rem;font-family:'Space Mono',monospace;font-size:.9rem;outline:none;transition:border-color .3s;margin-bottom:.8rem;border-radius:1px;}
+.linput:focus{border-color:var(--or);}
+.lbtn{width:100%;margin-top:.5rem;background:var(--or);color:var(--noir);border:none;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.2em;cursor:pointer;transition:background .3s;}
+.lbtn:hover{background:var(--or2);}
+.lbtn:disabled{opacity:.5;cursor:not-allowed;}
+.lerr{margin-top:.8rem;font-size:.82rem;color:var(--rouge2);display:none;}
+.lok{margin-top:.8rem;font-size:.82rem;color:var(--vert2);display:none;}
+.lback{display:block;margin-top:1.2rem;font-family:'Space Mono',monospace;font-size:.62rem;color:var(--gris);text-decoration:none;transition:color .3s;}
+.lback:hover{color:var(--or);}
+
+/* APP */
+#app{display:none;}
+.app-header{background:var(--n2);border-bottom:1px solid rgba(201,168,76,.12);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.app-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.15em;color:var(--or);}
+.app-logo span{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--gris);margin-left:.5rem;}
+.app-user{display:flex;align-items:center;gap:1rem;}
+.app-id{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.1em;color:var(--or);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:.3rem .7rem;}
+.app-nom{font-size:.9rem;color:var(--gris);}
+.app-decon{background:none;border:1px solid rgba(255,255,255,.1);color:var(--gris);padding:.35rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;cursor:pointer;transition:all .3s;}
+.app-decon:hover{border-color:var(--rouge2);color:var(--rouge2);}
+.app-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 60px);}
+.sidebar{background:var(--n2);border-right:1px solid rgba(201,168,76,.1);padding:1.5rem 0;}
+.sitem{display:flex;align-items:center;gap:.7rem;padding:.7rem 1.5rem;cursor:pointer;font-size:.88rem;color:var(--gris);transition:all .2s;border-left:2px solid transparent;}
+.sitem:hover{color:var(--blanc);background:rgba(255,255,255,.02);}
+.sitem.actif{color:var(--or);border-left-color:var(--or);background:rgba(201,168,76,.06);}
+.main{padding:2rem;overflow-y:auto;}
+.page{display:none;}.page.actif{display:block;}
+.ptit{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.08em;margin-bottom:.3rem;}
+.psub{font-size:.82rem;color:var(--gris);margin-bottom:2rem;}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem;}
+.card{background:var(--n2);border:1px solid rgba(201,168,76,.1);padding:1.2rem 1.5rem;border-left:3px solid var(--or);}
+.card-l{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--gris);text-transform:uppercase;margin-bottom:.4rem;}
+.card-v{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--or);line-height:1;}
+
+/* PROFIL */
+.profil-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.pbloc{background:var(--n2);border:1px solid rgba(201,168,76,.1);padding:1.5rem 2rem;}
+.pbloc-t{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em;color:var(--or);border-bottom:1px solid rgba(201,168,76,.12);padding-bottom:.7rem;margin-bottom:1.2rem;}
+.prow{display:flex;justify-content:space-between;align-items:flex-start;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.prow:last-child{border-bottom:none;}
+.prow-k{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--gris);text-transform:uppercase;flex-shrink:0;margin-right:1rem;}
+.prow-v{font-size:.9rem;text-align:right;word-break:break-all;}
+.membre-id-big{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--or);letter-spacing:.08em;text-align:center;padding:1.5rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);margin-bottom:1.5rem;}
+.badge-statut{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.15em;padding:.3rem .8rem;display:inline-block;margin-bottom:1.5rem;}
+.bs-non{background:rgba(255,255,255,.04);color:var(--gris);border:1px solid rgba(255,255,255,.1);}
+.bs-att{background:rgba(201,168,76,.1);color:var(--or);border:1px solid rgba(201,168,76,.3);}
+.bs-ok{background:rgba(30,92,58,.2);color:var(--vert2);border:1px solid var(--vert);}
+
+/* FORMULAIRES */
+.fcard{background:var(--n2);border:1px solid rgba(201,168,76,.1);padding:2rem;margin-bottom:1.5rem;}
+.fcard-t{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;color:var(--or);border-bottom:1px solid rgba(201,168,76,.12);padding-bottom:.7rem;margin-bottom:1.5rem;}
+.fg{margin-bottom:1rem;}
+.fg label{display:block;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--or);text-transform:uppercase;margin-bottom:.4rem;}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.07);color:var(--blanc);padding:.72rem .9rem;font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;transition:border-color .3s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--or);}
+.fg select option{background:var(--n3);}
+.fg textarea{resize:vertical;min-height:80px;}
+.fg-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.bsav{background:var(--or);color:var(--noir);border:none;padding:.7rem 1.8rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;cursor:pointer;transition:background .3s;}
+.bsav:hover{background:var(--or2);}
+.bsav:disabled{opacity:.5;cursor:not-allowed;}
+.mf{margin-top:.8rem;padding:.75rem 1rem;font-size:.85rem;display:none;}
+.mf.ok{background:rgba(30,92,58,.2);border:1px solid var(--vert);color:var(--vert2);display:block;}
+.mf.err{background:rgba(139,32,32,.2);border:1px solid var(--rouge);color:var(--rouge2);display:block;}
+
+/* PHOTO */
+.photo-zone{width:120px;height:150px;background:var(--n3);border:2px dashed rgba(201,168,76,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s;margin-bottom:1rem;overflow:hidden;}
+.photo-zone:hover{border-color:var(--or);}
+.photo-zone img{width:100%;height:100%;object-fit:cover;}
+.photo-txt{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--gris);text-align:center;padding:.5rem;}
+
+/* COMMANDES */
+.cmd-item{background:var(--n3);border:1px solid rgba(201,168,76,.08);padding:1.2rem 1.5rem;margin-bottom:.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.cmd-info p:first-child{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.05em;}
+.cmd-info p:last-child{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--gris);}
+.cmd-px{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--or);}
+.cmd-st{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.2rem .6rem;border-radius:2px;}
+.cs-att{background:rgba(201,168,76,.1);color:var(--or);border:1px solid rgba(201,168,76,.3);}
+.cs-ok{background:rgba(30,92,58,.2);color:var(--vert2);border:1px solid var(--vert);}
+
+.evide{text-align:center;padding:2.5rem;color:var(--gris);font-size:.85rem;border:1px dashed rgba(201,168,76,.12);}
+
+@media(max-width:768px){.app-layout{grid-template-columns:1fr;}.sidebar{display:flex;overflow-x:auto;padding:.5rem;border-right:none;border-bottom:1px solid rgba(201,168,76,.1);}.sitem{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;padding:.6rem 1rem;}.sitem.actif{border-bottom-color:var(--or);border-left-color:transparent;}.profil-grid,.fg-2{grid-template-columns:1fr;}.main{padding:1.5rem 1rem;}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-box">
+    <div class="login-logo">NEXUM ALPHA</div>
+    <div class="login-sub">Espace Membre</div>
+    <div class="login-tabs">
+      <button class="ltab actif" onclick="switchLogin('connexion')">CONNEXION</button>
+      <button class="ltab" onclick="switchLogin('mdp-oublie')">MOT DE PASSE OUBLIÉ</button>
+    </div>
+    <!-- CONNEXION -->
+    <div id="lp-connexion">
+      <input class="linput" type="email" id="l-email" placeholder="Email membre"/>
+      <input class="linput" type="password" id="l-pwd" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')connexion()"/>
+      <button class="lbtn" onclick="connexion()">ACCÉDER À MON ESPACE</button>
+      <div class="lerr" id="l-err">Email ou mot de passe incorrect.</div>
+    </div>
+    <!-- MOT DE PASSE OUBLIÉ -->
+    <div id="lp-mdp-oublie" style="display:none">
+      <p style="font-size:.85rem;color:var(--gris);margin-bottom:1rem;line-height:1.5">Entrez votre email membre pour recevoir un lien de réinitialisation.</p>
+      <input class="linput" type="email" id="l-reset-email" placeholder="votre@email.com"/>
+      <button class="lbtn" onclick="resetMdp()">ENVOYER LE LIEN</button>
+      <div class="lerr" id="r-err"></div>
+      <div class="lok" id="r-ok">✓ Email envoyé ! Vérifiez votre boîte.</div>
+    </div>
+    <a href="index.html" class="lback">← Retour à la vitrine</a>
+  </div>
+</div>
+
+<!-- APP MEMBRE -->
+<div id="app">
+  <header class="app-header">
+    <div class="app-logo">NEXUM ALPHA <span>// ESPACE MEMBRE</span></div>
+    <div class="app-user">
+      <span class="app-id" id="h-id">NXM-0000</span>
+      <span class="app-nom" id="h-nom">Membre</span>
+      <a href="index.html" style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--gris);text-decoration:none;padding:.35rem .9rem;border:1px solid rgba(255,255,255,.1);transition:color .3s" onmouseover="this.style.color='var(--or)'" onmouseout="this.style.color='var(--gris)'">VITRINE</a>
+      <button class="app-decon" onclick="deconnexion()">DÉCONNEXION</button>
+    </div>
+  </header>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sitem actif" onclick="page('dashboard')">📊 Tableau de bord</div>
+      <div class="sitem" onclick="page('profil')">👤 Mon profil</div>
+      <div class="sitem" onclick="page('badge')">🏷️ Mon badge</div>
+      <div class="sitem" onclick="page('commandes')">🛒 Mes commandes</div>
+      <div class="sitem" onclick="page('offres')">📋 Offres disponibles</div>
+      <div class="sitem" onclick="page('documents')">📄 Documents</div>
+    </aside>
+    <main class="main">
+
+      <!-- DASHBOARD -->
+      <div class="page actif" id="pg-dashboard">
+        <h1 class="ptit">BIENVENUE</h1>
+        <p class="psub" id="dash-sub">Votre espace membre Nexum Alpha</p>
+        <div class="cards">
+          <div class="card"><div class="card-l">Mon ID</div><div class="card-v" id="d-id" style="font-size:1.1rem">—</div></div>
+          <div class="card"><div class="card-l">Statut badge</div><div class="card-v" id="d-badge" style="font-size:1rem">—</div></div>
+          <div class="card"><div class="card-l">Commandes</div><div class="card-v" id="d-cmd">0</div></div>
+          <div class="card"><div class="card-l">Membre depuis</div><div class="card-v" id="d-since" style="font-size:.9rem">—</div></div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-t">⚡ Accès rapide</div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap">
+            <button class="bsav" onclick="page('badge')">Demander mon badge</button>
+            <button class="bsav" onclick="page('offres')">Voir les offres</button>
+            <button class="bsav" onclick="page('commandes')">Mes commandes</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROFIL -->
+      <div class="page" id="pg-profil">
+        <h1 class="ptit">MON PROFIL</h1>
+        <p class="psub">Vos informations membres enregistrées</p>
+        <div class="profil-grid">
+          <div>
+            <div class="membre-id-big" id="p-id-big">NXM-0000</div>
+            <div class="pbloc">
+              <div class="pbloc-t">Informations personnelles</div>
+              <div class="prow"><span class="prow-k">Nom</span><span class="prow-v" id="p-nom">—</span></div>
+              <div class="prow"><span class="prow-k">Email</span><span class="prow-v" id="p-email">—</span></div>
+              <div class="prow"><span class="prow-k">Téléphone</span><span class="prow-v" id="p-tel">—</span></div>
+              <div class="prow"><span class="prow-k">Poste</span><span class="prow-v" id="p-poste">—</span></div>
+              <div class="prow"><span class="prow-k">Lieu</span><span class="prow-v" id="p-lieu">—</span></div>
+              <div class="prow"><span class="prow-k">Domaine</span><span class="prow-v" id="p-dom">—</span></div>
+              <div class="prow"><span class="prow-k">Membre depuis</span><span class="prow-v" id="p-since">—</span></div>
+            </div>
+          </div>
+          <div class="pbloc">
+            <div class="pbloc-t">Modifier mon mot de passe</div>
+            <div class="fg"><label>Nouveau mot de passe</label><input type="password" id="np-pwd" placeholder="Minimum 8 caractères"/></div>
+            <div class="fg"><label>Confirmer</label><input type="password" id="np-conf" placeholder="Confirmer le mot de passe"/></div>
+            <button class="bsav" onclick="changerMdp()">ENREGISTRER</button>
+            <div class="mf" id="msg-mdp"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BADGE -->
+      <div class="page" id="pg-badge">
+        <h1 class="ptit">MON BADGE</h1>
+        <p class="psub">Complétez le formulaire pour demander votre badge membre officiel</p>
+        <div id="badge-statut-bloc"></div>
+        <div class="fcard" id="badge-form-bloc">
+          <div class="fcard-t">Formulaire de demande de badge</div>
+          <p style="font-size:.85rem;color:var(--gris);margin-bottom:1.5rem;line-height:1.6">Une fois validé par l'administration, votre badge officiel sera généré avec votre photo et vos informations.</p>
+          <div class="fg-2">
+            <div class="fg"><label>Nom *</label><input id="b-nom" placeholder="Votre nom complet"/></div>
+            <div class="fg"><label>Prénom *</label><input id="b-prenom" placeholder="Votre prénom"/></div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Date de naissance *</label><input type="date" id="b-naissance"/></div>
+            <div class="fg"><label>Nationalité *</label><input id="b-natl" placeholder="Ex : Béninoise"/></div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Poste / Titre *</label><input id="b-poste" placeholder="Ex : Consultant Senior"/></div>
+            <div class="fg"><label>Secteur *</label>
+              <select id="b-sect">
+                <option value="">-- Sélectionner --</option>
+                <option>Recherche & Réalisation</option>
+                <option>Consulting & Analyse</option>
+                <option>Bio Alimentaire</option>
+                <option>Formation Informatique</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg"><label>Adresse complète *</label><input id="b-adresse" placeholder="Ville, Pays"/></div>
+          <div class="fg"><label>Téléphone *</label><input id="b-tel" placeholder="+229 XX XX XX XX"/></div>
+          <div class="fg"><label>Photo d'identité * (format portrait, fond neutre)</label>
+            <div class="photo-zone" id="photo-zone" onclick="document.getElementById('b-photo').click()">
+              <div class="photo-txt">📷<br/>Cliquer pour<br/>ajouter votre photo</div>
+            </div>
+            <input type="file" id="b-photo" accept="image/*" style="display:none" onchange="previewPhoto(this)"/>
+          </div>
+          <button class="bsav" onclick="demanderBadge()">SOUMETTRE LA DEMANDE DE BADGE</button>
+          <div class="mf" id="msg-badge"></div>
+        </div>
+      </div>
+
+      <!-- COMMANDES -->
+      <div class="page" id="pg-commandes">
+        <h1 class="ptit">MES COMMANDES</h1>
+        <p class="psub">Historique de vos achats sur la boutique Nexum Alpha</p>
+        <div id="liste-cmd"><div class="evide">Chargement…</div></div>
+      </div>
+
+      <!-- OFFRES -->
+      <div class="page" id="pg-offres">
+        <h1 class="ptit">OFFRES DISPONIBLES</h1>
+        <p class="psub">Consultez toutes les offres en cours</p>
+        <div id="m-offres"><div class="evide">Chargement…</div></div>
+      </div>
+
+      <!-- DOCUMENTS -->
+      <div class="page" id="pg-documents">
+        <h1 class="ptit">DOCUMENTS</h1>
+        <p class="psub">Ressources publiées par Nexum Alpha</p>
+        <div id="m-docs"><div class="evide">Chargement…</div></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,collection,doc,getDoc,getDocs,addDoc,updateDoc,serverTimestamp,query,orderBy,where,getCountFromServer}
+  from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import{getAuth,signInWithEmailAndPassword,sendPasswordResetEmail,updatePassword,onAuthStateChanged,signOut}
+  from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import{getStorage,ref,uploadString,getDownloadURL}
+  from"https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const app=initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"393395005974",appId:"1:393395005974:web:b71d39b636dad8e153e337"});
+const db=getFirestore(app);
+const auth=getAuth(app);
+const storage=getStorage(app);
+
+let membreData=null;
+let photoBase64=null;
+
+// ── AUTH STATE ──
+onAuthStateChanged(auth,async user=>{
+  if(user){
+    await chargerMembre(user.uid,user.email);
+    document.getElementById('login').style.display='none';
+    document.getElementById('app').style.display='block';
+  }else{
+    document.getElementById('login').style.display='flex';
+    document.getElementById('app').style.display='none';
+  }
+});
+
+// ── CONNEXION ──
+window.connexion=async function(){
+  const email=document.getElementById('l-email').value.trim();
+  const pwd=document.getElementById('l-pwd').value;
+  const err=document.getElementById('l-err');
+  err.style.display='none';
+  if(!email||!pwd){err.textContent='Remplissez tous les champs.';err.style.display='block';return;}
+  try{await signInWithEmailAndPassword(auth,email,pwd);}
+  catch(e){err.textContent='Email ou mot de passe incorrect.';err.style.display='block';}
+};
+
+window.deconnexion=async function(){await signOut(auth);};
+
+window.resetMdp=async function(){
+  const email=document.getElementById('l-reset-email').value.trim();
+  const err=document.getElementById('r-err');const ok=document.getElementById('r-ok');
+  err.style.display='none';ok.style.display='none';
+  if(!email){err.textContent='Entrez votre email.';err.style.display='block';return;}
+  try{await sendPasswordResetEmail(auth,email);ok.style.display='block';}
+  catch(e){err.textContent='Email non trouvé.';err.style.display='block';}
+};
+
+window.changerMdp=async function(){
+  const np=document.getElementById('np-pwd').value;
+  const cf=document.getElementById('np-conf').value;
+  const msg=document.getElementById('msg-mdp');
+  if(!np||np.length<8){msg.className='mf err';msg.textContent='8 caractères minimum.';return;}
+  if(np!==cf){msg.className='mf err';msg.textContent='Les mots de passe ne correspondent pas.';return;}
+  try{
+    await updatePassword(auth.currentUser,np);
+    msg.className='mf ok';msg.textContent='✓ Mot de passe mis à jour.';
+    document.getElementById('np-pwd').value='';document.getElementById('np-conf').value='';
+  }catch(e){msg.className='mf err';msg.textContent='Erreur. Reconnectez-vous puis réessayez.';}
+};
+
+// ── CHARGER MEMBRE ──
+async function chargerMembre(uid,email){
+  try{
+    const snap=await getDoc(doc(db,'membres',uid));
+    if(snap.exists()){
+      membreData={...snap.data(),uid,email};
+    }else{
+      // Cherche dans les demandes approuvées par email
+      const q=query(collection(db,'demandes'),where('email','==',email),where('statut','==','approuve'));
+      const ds=await getDocs(q);
+      if(!ds.empty){
+        const d=ds.docs[0].data();
+        membreData={...d,uid,email,demandeId:ds.docs[0].id};
+      }else{
+        membreData={uid,email,nom:email,membreId:'NXM-0000',domaine:'—',statut:'approuve'};
+      }
+    }
+    remplirInterface();
+  }catch(e){console.error(e);}
+}
+
+function remplirInterface(){
+  const d=membreData;
+  const id=d.membreId||'NXM-0000';
+  const nom=d.nom||'Membre';
+  document.getElementById('h-id').textContent=id;
+  document.getElementById('h-nom').textContent=nom;
+  document.getElementById('dash-sub').textContent='Bienvenue, '+nom+' — '+id;
+  document.getElementById('d-id').textContent=id;
+  document.getElementById('d-badge').textContent=d.badgeStatut==='approuve'?'✓ ACTIF':d.badgeStatut==='en_attente'?'EN ATTENTE':'NON DEMANDÉ';
+  document.getElementById('p-id-big').textContent=id;
+  document.getElementById('p-nom').textContent=nom;
+  document.getElementById('p-email').textContent=d.email||'—';
+  document.getElementById('p-tel').textContent=d.tel||'—';
+  document.getElementById('p-poste').textContent=d.poste||'—';
+  document.getElementById('p-lieu').textContent=d.lieu||'—';
+  document.getElementById('p-dom').textContent=d.domaine||'—';
+  const dt=d.traiteLe?.toDate?.();
+  const dtStr=dt?dt.toLocaleDateString('fr-FR'):'—';
+  document.getElementById('p-since').textContent=dtStr;
+  document.getElementById('d-since').textContent=dtStr;
+
+  // Pré-remplir badge
+  if(d.nom){document.getElementById('b-nom').value=d.nom.split(' ').slice(1).join(' ')||d.nom;}
+  if(d.nom){document.getElementById('b-prenom').value=d.nom.split(' ')[0]||'';}
+  if(d.tel){document.getElementById('b-tel').value=d.tel;}
+  if(d.poste){document.getElementById('b-poste').value=d.poste;}
+  if(d.domaine){document.getElementById('b-sect').value=d.domaine;}
+  if(d.lieu){document.getElementById('b-adresse').value=d.lieu;}
+
+  afficherStatutBadge(d.badgeStatut);
+  chargerCommandes();
+}
+
+function afficherStatutBadge(statut){
+  const bloc=document.getElementById('badge-statut-bloc');
+  const form=document.getElementById('badge-form-bloc');
+  if(statut==='approuve'){
+    bloc.innerHTML=`<div style="background:rgba(30,92,58,.15);border:1px solid var(--vert);padding:1.5rem 2rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem"><div><div style="font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.15em;color:var(--vert2);margin-bottom:.3rem">BADGE VALIDÉ</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em">Votre badge est prêt !</div></div><a href="badge.html" style="background:var(--or);color:var(--noir);padding:.7rem 1.5rem;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.12em">TÉLÉCHARGER LE BADGE</a></div>`;
+    form.style.display='none';
+  }else if(statut==='en_attente'){
+    bloc.innerHTML=`<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:1.5rem 2rem;margin-bottom:1.5rem"><div style="font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.15em;color:var(--or);margin-bottom:.3rem">EN COURS DE VALIDATION</div><div style="font-size:.92rem;color:var(--gris)">Votre demande de badge est en cours de traitement par l'administration Nexum Alpha. Vous serez notifié par email.</div></div>`;
+    form.style.display='none';
+  }else{
+    bloc.innerHTML='';form.style.display='block';
+  }
+}
+
+// ── BADGE ──
+window.previewPhoto=function(input){
+  if(!input.files||!input.files[0])return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    photoBase64=e.target.result;
+    const zone=document.getElementById('photo-zone');
+    zone.innerHTML=`<img src="${photoBase64}" alt="Photo"/>`;
+  };
+  reader.readAsDataURL(input.files[0]);
+};
+
+window.demanderBadge=async function(){
+  const champs={nom:'b-nom',prenom:'b-prenom',naissance:'b-naissance',natl:'b-natl',poste:'b-poste',sect:'b-sect',adresse:'b-adresse',tel:'b-tel'};
+  const data={};
+  for(const[k,id] of Object.entries(champs)){
+    data[k]=document.getElementById(id).value.trim();
+    if(!data[k]&&k!=='sect'){continue;}
+  }
+  const msg=document.getElementById('msg-badge');
+  if(!data.nom||!data.prenom||!data.naissance||!data.poste){msg.className='mf err';msg.textContent='Remplissez tous les champs obligatoires.';return;}
+  if(!photoBase64){msg.className='mf err';msg.textContent='Veuillez ajouter votre photo d\'identité.';return;}
+
+  const btn=document.querySelector('#badge-form-bloc .bsav');
+  btn.disabled=true;btn.textContent='Envoi…';
+  try{
+    // Upload photo
+    const uid=auth.currentUser.uid;
+    const photoRef=ref(storage,`badges/${uid}/photo.jpg`);
+    await uploadString(photoRef,photoBase64,'data_url');
+    const photoURL=await getDownloadURL(photoRef);
+
+    // Sauvegarder demande badge
+    await addDoc(collection(db,'demandes_badges'),{
+      ...data,photoURL,uid,email:membreData.email,
+      membreId:membreData.membreId||'—',
+      nom_complet:`${data.prenom} ${data.nom}`,
+      statut:'en_attente',createdAt:serverTimestamp()
+    });
+
+    // Mettre à jour statut badge du membre
+    if(membreData.uid){
+      try{await updateDoc(doc(db,'membres',uid),{badgeStatut:'en_attente'});}catch(e){}
+    }
+
+    msg.className='mf ok';msg.textContent='✓ Demande de badge soumise ! Vous serez notifié par email.';
+    membreData.badgeStatut='en_attente';
+    setTimeout(()=>{afficherStatutBadge('en_attente');},1500);
+  }catch(e){msg.className='mf err';msg.textContent='Erreur lors de l\'envoi. Réessayez.';btn.disabled=false;btn.textContent='SOUMETTRE LA DEMANDE DE BADGE';}
+};
+
+// ── COMMANDES ──
+async function chargerCommandes(){
+  const c=document.getElementById('liste-cmd');
+  try{
+    const q=query(collection(db,'commandes'),where('email','==',membreData.email),orderBy('createdAt','desc'));
+    const s=await getDocs(q);
+    const nb=s.size;document.getElementById('d-cmd').textContent=nb;
+    if(s.empty){c.innerHTML='<div class="evide">Aucune commande pour le moment.</div>';return;}
+    c.innerHTML='';
+    s.forEach(d=>{const cmd=d.data();
+      const dt=cmd.createdAt?.toDate?.();
+      const el=document.createElement('div');el.className='cmd-item';
+      el.innerHTML=`<div class="cmd-info"><p>${cmd.articles?.map(a=>a.nom).join(', ')||'Commande'}</p><p>${dt?dt.toLocaleDateString('fr-FR'):''}</p></div><div style="display:flex;align-items:center;gap:1rem"><span class="cmd-px">${(cmd.total||0).toLocaleString()} FCFA</span><span class="cmd-st ${cmd.statut==='livre'?'cs-ok':'cs-att'}">${cmd.statut==='livre'?'LIVRÉ':'EN ATTENTE'}</span></div>`;
+      c.appendChild(el);
+    });
+  }catch(e){c.innerHTML='<div class="evide">Impossible de charger vos commandes.</div>';}
+}
+
+// ── OFFRES & DOCS (lecture seule) ──
+async function chargerOffres(){
+  const c=document.getElementById('m-offres');
+  try{
+    const s=await getDocs(query(collection(db,'offres'),orderBy('createdAt','desc')));
+    if(s.empty){c.innerHTML='<div class="evide">Aucune offre disponible.</div>';return;}
+    c.innerHTML='';
+    s.forEach(d=>{const o=d.data();
+      const el=document.createElement('div');el.className='cmd-item';
+      el.innerHTML=`<div class="cmd-info"><p>${o.titre||'—'}</p><p>${o.secteur||''} ${o.lieu?'· '+o.lieu:''}</p></div><span style="font-family:'Space Mono',monospace;font-size:.6rem;padding:.25rem .7rem;border:1px solid var(--or);color:var(--or)">${o.type||'OFFRE'}</span>`;
+      c.appendChild(el);
+    });
+  }catch(e){c.innerHTML='<div class="evide">Erreur de chargement.</div>';}
+}
+
+async function chargerDocs(){
+  const c=document.getElementById('m-docs');
+  try{
+    const s=await getDocs(query(collection(db,'documents'),orderBy('createdAt','desc')));
+    if(s.empty){c.innerHTML='<div class="evide">Aucun document publié.</div>';return;}
+    c.innerHTML='';
+    s.forEach(d=>{const dc=d.data();
+      const el=document.createElement('a');el.className='cmd-item';el.href=dc.url||'#';el.target='_blank';el.style.textDecoration='none';el.style.color='var(--blanc)';
+      el.innerHTML=`<div class="cmd-info"><p>📄 ${dc.nom||'Document'}</p><p>${dc.type||'PDF'}</p></div><span style="font-size:.8rem;color:var(--or2)">Télécharger →</span>`;
+      c.appendChild(el);
+    });
+  }catch(e){c.innerHTML='<div class="evide">Erreur de chargement.</div>';}
+}
+
+// ── NAVIGATION ──
+window.page=function(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('actif'));
+  document.querySelectorAll('.sitem').forEach(s=>s.classList.remove('actif'));
+  document.getElementById('pg-'+id).classList.add('actif');
+  document.querySelectorAll('.sitem').forEach(s=>{
+    const map={dashboard:'Tableau',profil:'profil',badge:'badge',commandes:'commandes',offres:'Offres',documents:'Documents'};
+    if(s.textContent.toLowerCase().includes((map[id]||id).toLowerCase()))s.classList.add('actif');
+  });
+  if(id==='offres')chargerOffres();
+  if(id==='documents')chargerDocs();
+};
+
+window.switchLogin=function(tab){
+  document.querySelectorAll('.ltab').forEach((t,i)=>t.classList.toggle('actif',['connexion','mdp-oublie'][i]===tab));
+  document.getElementById('lp-connexion').style.display=tab==='connexion'?'block':'none';
+  document.getElementById('lp-mdp-oublie').style.display=tab==='mdp-oublie'?'block':'none';
+};
+</script>
+</body>
+</html>
