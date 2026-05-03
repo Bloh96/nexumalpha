@@ -445,6 +445,7 @@ async function chargerStats(){
       getCountFromServer(query(collection(db,'demandes'),where('statut','==','en_attente'))),
       getCountFromServer(query(collection(db,'demandes'),where('statut','==','approuve'))),
       getCountFromServer(query(collection(db,'demandes_badges'),where('statut','==','en_attente'))),
+
       getCountFromServer(collection(db,'commandes'))
     ]);
     document.getElementById('ds-off').textContent=off.data().count;
@@ -591,7 +592,7 @@ window.ajouterProduit=async function(){
 async function chargerDemandes(){
   const tb=document.getElementById('tb-demandes');
   try{
-    const s=await getDocs(query(collection(db,'demandes'),where('statut','==','en_attente'),orderBy('createdAt','desc')));
+    const s=await getDocs(query(collection(db,'demandes'),where('statut','==','en_attente')));
     if(s.empty){tb.innerHTML=`<tr><td colspan="7" class="evide">Aucune demande en attente.</td></tr>`;return;}
     tb.innerHTML='';
     s.forEach(d=>{const dem=d.data();const id=d.id;
@@ -666,7 +667,7 @@ window.refuserDemande=async function(id,email,nom){
 async function chargerMembres(){
   const tb=document.getElementById('tb-membres');
   try{
-    const s=await getDocs(query(collection(db,'demandes'),where('statut','==','approuve'),orderBy('traiteLe','desc')));
+    const s=await getDocs(query(collection(db,'demandes'),where('statut','==','approuve')));
     if(s.empty){tb.innerHTML=`<tr><td colspan="6" class="evide">Aucun membre validé.</td></tr>`;return;}
     tb.innerHTML='';
     s.forEach(d=>{const m=d.data();const id=d.id;
