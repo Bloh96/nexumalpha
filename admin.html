@@ -382,6 +382,7 @@ tbody td{padding:.82rem 1rem;vertical-align:middle;}
 
 <div id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import{getFirestore,collection,doc,getDoc,setDoc,addDoc,getDocs,deleteDoc,updateDoc,serverTimestamp,query,orderBy,where,getCountFromServer}
@@ -390,6 +391,23 @@ import{getAuth,createUserWithEmailAndPassword,sendPasswordResetEmail}
   from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const MDP_ADMIN="nexum2026admin"; // 🔑 CHANGE CE MOT DE PASSE
+
+// ── EMAILJS CONFIG ──
+const EJS_SERVICE  = "service_1p2d0nu";
+const EJS_TEMPLATE = "template_zref88g";
+const EJS_KEY      = "HuMRSJgyh3i0eu_sY";
+emailjs.init(EJS_KEY);
+
+async function envoyerEmail(to_email, to_name, sujet, message){
+  try{
+    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+      to_email, to_name, sujet, message,
+      from_name: "Joseph Dèwanou BLOH — NEXUM ALPHA",
+      reply_to: "nexumalpha@gmail.com"
+    });
+    console.log("✓ Email envoyé à", to_email);
+  }catch(e){ console.error("EmailJS erreur:", e); }
+}
 
 const app=initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"393395005974",appId:"1:393395005974:web:b71d39b636dad8e153e337"});
 const db=getFirestore(app);
@@ -607,7 +625,7 @@ window.validerDemande=async function(id,email,nom){
   if(!confirm(`Valider la demande de ${nom} ?`))return;
   try{
     const membreId=genId();
-    const motDePasse=Math.random().toString(36).slice(-8)+'!';
+    const motDePasse=Math.random().toString(36).slice(-8)+'N!';
 
     // 1. Mettre à jour la demande
     await updateDoc(doc(db,'demandes',id),{statut:'approuve',membreId,traiteLe:serverTimestamp()});
@@ -618,11 +636,10 @@ window.validerDemande=async function(id,email,nom){
       const cred=await createUserWithEmailAndPassword(auth,email,motDePasse);
       uid=cred.user.uid;
     }catch(e){
-      // Si compte existe déjà, on envoie juste un reset
       try{await sendPasswordResetEmail(auth,email);}catch(e2){}
     }
 
-    // 3. Créer le document membre
+    // 3. Créer le document membre dans Firestore
     if(uid){
       const snapDem=await getDoc(doc(db,'demandes',id));
       const demData=snapDem.data();
@@ -633,16 +650,14 @@ window.validerDemande=async function(id,email,nom){
       });
     }
 
-    // 4. Enregistrer notification email à envoyer
-    await addDoc(collection(db,'emails_a_envoyer'),{
-      to:email,
-      sujet:'✓ Votre adhésion Nexum Alpha est validée !',
-      corps:`Bonjour ${nom},\n\nNous avons le plaisir de vous informer que votre demande d'adhésion au groupe Nexum Alpha a été validée.\n\nVotre identifiant membre : ${membreId}\nEmail de connexion : ${email}\nMot de passe provisoire : ${motDePasse}\n\nConnectez-vous dès maintenant sur notre espace membre pour compléter votre profil et demander votre badge officiel.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations — NEXUM ALPHA`,
-      statut:'en_attente',
-      createdAt:serverTimestamp()
-    });
+    // 4. Envoyer email via EmailJS
+    await envoyerEmail(
+      email, nom,
+      '✓ Votre adhésion Nexum Alpha est validée !',
+      `Bonjour ${nom},\n\nNous avons le plaisir de vous informer que votre demande d'adhésion au groupe NEXUM ALPHA a été validée avec succès.\n\n━━━━━━━━━━━━━━━━━━━━━━━\nVOS ACCÈS MEMBRES\n━━━━━━━━━━━━━━━━━━━━━━━\n🪪 Identifiant membre : ${membreId}\n📧 Email de connexion : ${email}\n🔑 Mot de passe provisoire : ${motDePasse}\n━━━━━━━━━━━━━━━━━━━━━━━\n\nConnectez-vous dès maintenant à votre espace membre :\n👉 https://bloh96.github.io/nexum-groupe/membre.html\n\nUne fois connecté, vous pourrez :\n• Consulter votre profil et votre ID membre\n• Demander votre badge officiel\n• Accéder aux offres et documents exclusifs\n• Changer votre mot de passe\n\nBienvenue dans la famille NEXUM ALPHA !\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
 
-    toast(`✓ ${nom} validé(e) — ID : ${membreId}`);
+    toast(`✓ ${nom} validé(e) — ID : ${membreId} — Email envoyé !`);
     chargerDemandes();chargerMembres();chargerStats();
   }catch(e){console.error(e);toast('Erreur lors de la validation.',true);}
 };
@@ -651,14 +666,14 @@ window.refuserDemande=async function(id,email,nom){
   if(!confirm(`Refuser la demande de ${nom} ?`))return;
   try{
     await updateDoc(doc(db,'demandes',id),{statut:'rejete',traiteLe:serverTimestamp()});
-    await addDoc(collection(db,'emails_a_envoyer'),{
-      to:email,
-      sujet:'Votre demande d\'adhésion Nexum Alpha',
-      corps:`Bonjour ${nom},\n\nNous avons bien reçu votre demande d'adhésion au groupe Nexum Alpha.\n\nAprès examen de votre dossier, nous ne sommes pas en mesure de donner une suite favorable à votre candidature pour le moment.\n\nNous vous encourageons à postuler à nouveau dans le futur.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations — NEXUM ALPHA`,
-      statut:'en_attente',
-      createdAt:serverTimestamp()
-    });
-    toast(`Demande de ${nom} refusée.`);
+
+    await envoyerEmail(
+      email, nom,
+      'Votre demande d\'adhésion Nexum Alpha',
+      `Bonjour ${nom},\n\nNous avons bien reçu et examiné votre demande d'adhésion au groupe NEXUM ALPHA.\n\nAprès examen de votre dossier, nous ne sommes pas en mesure de donner une suite favorable à votre candidature pour le moment.\n\nNous vous encourageons à postuler à nouveau ultérieurement. N'hésitez pas à nous contacter pour plus d'informations.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
+
+    toast(`Demande de ${nom} refusée — Email envoyé.`);
     chargerDemandes();chargerStats();
   }catch(e){toast('Erreur.',true);}
 };
@@ -708,15 +723,17 @@ async function chargerBadges(){
 window.validerBadge=async function(id,email,nom,uid){
   if(!confirm(`Valider le badge de ${nom} ?`))return;
   try{
-    await updateDoc(doc(db,'demandes_badges',id),{statut:'approuve',valideLE:serverTimestamp()});
+    await updateDoc(doc(db,'demandes_badges',id),{statut:'approuve',valideLe:serverTimestamp()});
     if(uid){try{await updateDoc(doc(db,'membres',uid),{badgeStatut:'approuve'});}catch(e){}}
-    await addDoc(collection(db,'emails_a_envoyer'),{
-      to:email,
-      sujet:'🏷️ Votre badge Nexum Alpha est prêt !',
-      corps:`Bonjour ${nom},\n\nVotre badge membre officiel Nexum Alpha a été validé et est maintenant disponible.\n\nConnectez-vous à votre espace membre pour télécharger votre badge.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations — NEXUM ALPHA`,
-      statut:'en_attente',createdAt:serverTimestamp()
-    });
-    toast(`✓ Badge de ${nom} validé !`);chargerBadges();chargerStats();
+
+    await envoyerEmail(
+      email, nom,
+      '🏷️ Votre badge Nexum Alpha est prêt !',
+      `Bonjour ${nom},\n\nExcellente nouvelle ! Votre badge membre officiel NEXUM ALPHA a été validé et est maintenant disponible au téléchargement.\n\n━━━━━━━━━━━━━━━━━━━━━━━\nACCÉDER À MON BADGE\n━━━━━━━━━━━━━━━━━━━━━━━\n👉 https://bloh96.github.io/nexum-groupe/badge.html\n\nConnectez-vous avec vos identifiants membres pour télécharger et imprimer votre badge officiel.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
+
+    toast(`✓ Badge de ${nom} validé — Email envoyé !`);
+    chargerBadges();chargerStats();
   }catch(e){toast('Erreur.',true);}
 };
 
@@ -725,13 +742,15 @@ window.refuserBadge=async function(id,email,nom,uid){
   try{
     await updateDoc(doc(db,'demandes_badges',id),{statut:'rejete',traiteLe:serverTimestamp()});
     if(uid){try{await updateDoc(doc(db,'membres',uid),{badgeStatut:'non_demande'});}catch(e){}}
-    await addDoc(collection(db,'emails_a_envoyer'),{
-      to:email,
-      sujet:'Votre demande de badge Nexum Alpha',
-      corps:`Bonjour ${nom},\n\nVotre demande de badge membre a été examinée. Elle n'a pas pu être validée en l'état.\n\nVeuillez vous reconnecter à votre espace membre pour soumettre une nouvelle demande avec les informations correctes.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations — NEXUM ALPHA`,
-      statut:'en_attente',createdAt:serverTimestamp()
-    });
-    toast(`Badge de ${nom} refusé.`);chargerBadges();chargerStats();
+
+    await envoyerEmail(
+      email, nom,
+      'Votre demande de badge Nexum Alpha',
+      `Bonjour ${nom},\n\nVotre demande de badge membre a été examinée par notre équipe. Elle n'a pas pu être validée en l'état.\n\nVeuillez vous reconnecter à votre espace membre pour soumettre une nouvelle demande en vous assurant que :\n• Votre photo est bien visible et sur fond neutre\n• Tous les champs sont correctement remplis\n\n👉 https://bloh96.github.io/nexum-groupe/badge.html\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
+
+    toast(`Badge de ${nom} refusé — Email envoyé.`);
+    chargerBadges();chargerStats();
   }catch(e){toast('Erreur.',true);}
 };
 
