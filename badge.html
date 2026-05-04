@@ -236,13 +236,10 @@ import{getFirestore,collection,doc,getDoc,getDocs,addDoc,updateDoc,serverTimesta
   from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import{getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut}
   from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import{getStorage,ref,uploadString,getDownloadURL}
-  from"https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 const app=initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"393395005974",appId:"1:393395005974:web:b71d39b636dad8e153e337"});
 const db=getFirestore(app);
 const auth=getAuth(app);
-const storage=getStorage(app);
 
 let membreData=null;
 let photoBase64=null;
@@ -362,16 +359,25 @@ window.soumettre=async function(){
   btn.disabled=true;btn.textContent='Envoi en cours…';
   try{
     const uid=auth.currentUser.uid;
-    // Upload photo
-    const photoRef=ref(storage,`badges/${uid}/photo_${Date.now()}.jpg`);
-    await uploadString(photoRef,photoBase64,'data_url');
-    const photoURL=await getDownloadURL(photoRef);
 
-    // Enregistrer demande
+    // Compresser la photo avant de stocker dans Firestore
+    let photoData=photoBase64;
+    if(photoBase64){
+      const canvas=document.createElement('canvas');
+      const img=new Image();
+      await new Promise(resolve=>{img.onload=resolve;img.src=photoBase64;});
+      canvas.width=200;canvas.height=250;
+      const ctx=canvas.getContext('2d');
+      ctx.drawImage(img,0,0,200,250);
+      photoData=canvas.toDataURL('image/jpeg',0.7);
+    }
+
+    // Enregistrer demande avec photo compressée directement dans Firestore
     await addDoc(collection(db,'demandes_badges'),{
       prenom,nom,nom_complet:`${prenom} ${nom}`,
       poste,secteur:sect,dateNaissance:naiss,nationalite:natl,
-      adresse,tel,photoURL,
+      adresse,tel,
+      photoBase64:photoData,
       uid,email:membreData?.email||'',
       membreId:membreData?.membreId||'—',
       statut:'en_attente',
