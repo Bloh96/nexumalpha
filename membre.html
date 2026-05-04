@@ -276,13 +276,10 @@ import{getFirestore,collection,doc,getDoc,getDocs,addDoc,updateDoc,serverTimesta
   from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import{getAuth,signInWithEmailAndPassword,sendPasswordResetEmail,updatePassword,onAuthStateChanged,signOut}
   from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import{getStorage,ref,uploadString,getDownloadURL}
-  from"https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 const app=initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"393395005974",appId:"1:393395005974:web:b71d39b636dad8e153e337"});
 const db=getFirestore(app);
 const auth=getAuth(app);
-const storage=getStorage(app);
 
 let membreData=null;
 let photoBase64=null;
@@ -428,21 +425,27 @@ window.demanderBadge=async function(){
   const btn=document.querySelector('#badge-form-bloc .bsav');
   btn.disabled=true;btn.textContent='Envoi…';
   try{
-    // Upload photo
     const uid=auth.currentUser.uid;
-    const photoRef=ref(storage,`badges/${uid}/photo.jpg`);
-    await uploadString(photoRef,photoBase64,'data_url');
-    const photoURL=await getDownloadURL(photoRef);
 
-    // Sauvegarder demande badge
+    // Compresser la photo sans Storage
+    let photoData=photoBase64;
+    if(photoBase64){
+      const canvas=document.createElement('canvas');
+      const img=new Image();
+      await new Promise(resolve=>{img.onload=resolve;img.src=photoBase64;});
+      canvas.width=200;canvas.height=250;
+      canvas.getContext('2d').drawImage(img,0,0,200,250);
+      photoData=canvas.toDataURL('image/jpeg',0.7);
+    }
+
+    // Sauvegarder demande badge avec photo base64 directement
     await addDoc(collection(db,'demandes_badges'),{
-      ...data,photoURL,uid,email:membreData.email,
+      ...data,photoBase64:photoData,uid,email:membreData.email,
       membreId:membreData.membreId||'—',
       nom_complet:`${data.prenom} ${data.nom}`,
       statut:'en_attente',createdAt:serverTimestamp()
     });
 
-    // Mettre à jour statut badge du membre
     if(membreData.uid){
       try{await updateDoc(doc(db,'membres',uid),{badgeStatut:'en_attente'});}catch(e){}
     }
