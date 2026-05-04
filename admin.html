@@ -705,7 +705,7 @@ async function chargerBadges(){
       const stLbl=b.statut==='approuve'?'VALIDÉ':b.statut==='rejete'?'REFUSÉ':'EN ATTENTE';
       const tr=document.createElement('tr');
       tr.innerHTML=`
-        <td>${b.photoURL?`<img src="${b.photoURL}" style="width:40px;height:50px;object-fit:cover;border:1px solid rgba(201,168,76,.2)"/>`:'—'}</td>
+        <td>${b.photoBase64?`<img src="${b.photoBase64}" style="width:40px;height:50px;object-fit:cover;border:1px solid rgba(201,168,76,.2)"/>`:'—'}</td>
         <td><strong>${b.nom_complet||b.nom||'—'}</strong></td>
         <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:var(--or)">${b.membreId||'—'}</td>
         <td>${b.poste||'—'}</td>
