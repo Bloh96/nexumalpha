@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NEXUM ALPHA | Offres d'emploi</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--or:#C9A84C;--or2:#E8C87A;--or3:#9A7A30;--noir:#080808;--n2:#0F0F0F;--n3:#171717;--n4:#202020;--blanc:#F2EDE4;--gris:#7A7670;--vert:#1E5C3A;--vert2:#3A9E6A;--rouge:#8B2020;--rouge2:#E07070;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--noir);color:var(--blanc);font-family:'Cormorant Garamond',serif;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.5;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(8,8,8,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.1);}
+.nlogo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
+.nlogo-m{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.2em;color:var(--or);}
+.nlogo-s{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.25em;color:var(--gris);}
+.nlinks{display:flex;gap:1.5rem;align-items:center;}
+.nl{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--gris);text-decoration:none;text-transform:uppercase;transition:color .3s;padding:.3rem 0;position:relative;}
+.nl::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--or);transition:width .3s;}
+.nl:hover{color:var(--or);}.nl:hover::after{width:100%;}
+.nl.active{color:var(--or);}.nl.active::after{width:100%;}
+.nl-mem{background:var(--or);color:var(--noir)!important;padding:.4rem 1rem!important;transition:background .3s!important;}.nl-mem:hover{background:var(--or2)!important;}.nl-mem::after{display:none!important;}
+.nl-adm{border:1px solid rgba(201,168,76,.3);color:var(--or)!important;padding:.4rem .9rem!important;}.nl-adm:hover{background:rgba(201,168,76,.08)!important;}.nl-adm::after{display:none!important;}
+.burger{display:none;background:none;border:none;color:var(--or);font-size:1.4rem;cursor:pointer;}
+
+/* PAGE */
+.page-hero{padding:8rem 3rem 4rem;background:var(--n2);border-bottom:1px solid rgba(201,168,76,.08);}
+.sec-tag{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.3em;color:var(--or);text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem;}
+.sec-tag::before{content:'';width:24px;height:1px;background:var(--or);}
+.page-tit{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);letter-spacing:.04em;line-height:.9;}
+.page-sub{font-size:1.05rem;color:var(--gris);line-height:1.7;max-width:500px;margin-top:1rem;}
+
+/* FILTRES */
+.filtres{padding:2rem 3rem;background:var(--noir);border-bottom:1px solid rgba(201,168,76,.08);display:flex;gap:1rem;flex-wrap:wrap;align-items:center;}
+.filtre-btn{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;padding:.45rem 1rem;border:1px solid rgba(255,255,255,.1);color:var(--gris);background:none;cursor:pointer;transition:all .3s;text-transform:uppercase;}
+.filtre-btn:hover{border-color:rgba(201,168,76,.3);color:var(--blanc);}
+.filtre-btn.actif{border-color:var(--or);color:var(--or);background:rgba(201,168,76,.06);}
+.filtre-label{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.15em;color:var(--gris);text-transform:uppercase;}
+
+/* OFFRES */
+.offres-container{max-width:900px;margin:0 auto;padding:3rem 2rem;}
+.offre-card{background:var(--n2);border:1px solid rgba(201,168,76,.1);border-left:3px solid var(--or);margin-bottom:1.2rem;overflow:hidden;transition:border-color .3s;}
+.offre-card:hover{border-color:rgba(201,168,76,.3);}
+.offre-header{padding:1.5rem 1.8rem;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;}
+.offre-tit{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;margin-bottom:.3rem;}
+.offre-meta{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--gris);display:flex;gap:1rem;flex-wrap:wrap;}
+.offre-meta span{display:flex;align-items:center;gap:.3rem;}
+.offre-right{display:flex;align-items:center;gap:.8rem;flex-shrink:0;}
+.tag{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.08em;padding:.22rem .65rem;border:1px solid var(--or);color:var(--or);white-space:nowrap;}
+.offre-toggle{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--gris);transition:transform .3s;}
+.offre-card.open .offre-toggle{transform:rotate(180deg);}
+
+/* BODY OFFRE */
+.offre-body{display:none;padding:0 1.8rem 1.8rem;}
+.offre-card.open .offre-body{display:block;}
+.offre-desc{font-size:.95rem;color:var(--gris);line-height:1.8;white-space:pre-wrap;margin-bottom:1.5rem;}
+.offre-actions{display:flex;gap:.8rem;flex-wrap:wrap;}
+.btn-postuler{background:var(--or);color:var(--noir);border:none;padding:.75rem 1.8rem;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.15em;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;}
+.btn-postuler:hover{background:var(--or2);transform:translateY(-1px);}
+.btn-partager{background:transparent;color:var(--blanc);border:1px solid rgba(255,255,255,.15);padding:.75rem 1.4rem;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.12em;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;}
+.btn-partager:hover{border-color:var(--or);color:var(--or);}
+.btn-wa{background:rgba(37,211,102,.15);color:#25D366;border:1px solid rgba(37,211,102,.3);padding:.75rem 1.4rem;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.12em;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;}
+.btn-wa:hover{background:rgba(37,211,102,.25);}
+
+/* MODAL POSTULER */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:800;display:none;align-items:center;justify-content:center;padding:2rem;}
+.overlay.open{display:flex;}
+.modal{background:var(--n2);border:1px solid rgba(201,168,76,.2);max-width:540px;width:100%;padding:2.5rem;position:relative;max-height:90vh;overflow-y:auto;}
+.modal-fermer{position:absolute;top:1rem;right:1.5rem;background:none;border:none;color:var(--gris);font-size:1.8rem;cursor:pointer;}
+.modal-fermer:hover{color:var(--blanc);}
+.modal-tag{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--or);text-transform:uppercase;margin-bottom:.5rem;}
+.modal-tit{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;margin-bottom:1.5rem;}
+.fg{margin-bottom:1rem;}
+.fg label{display:block;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--or);text-transform:uppercase;margin-bottom:.4rem;}
+.fg input,.fg textarea{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.07);color:var(--blanc);padding:.72rem .9rem;font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;transition:border-color .3s;}
+.fg input:focus,.fg textarea:focus{border-color:var(--or);}
+.fg textarea{resize:vertical;min-height:100px;}
+.btn-sub{width:100%;background:var(--or);color:var(--noir);border:none;padding:1rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.15em;cursor:pointer;transition:background .3s;margin-top:.5rem;}
+.btn-sub:hover{background:var(--or2);}
+.btn-sub:disabled{opacity:.45;cursor:not-allowed;}
+.mf{margin-top:.8rem;padding:.75rem 1rem;font-size:.85rem;display:none;}
+.mf.ok{background:rgba(30,92,58,.2);border:1px solid var(--vert);color:var(--vert2);display:block;}
+.mf.err{background:rgba(139,32,32,.2);border:1px solid var(--rouge);color:var(--rouge2);display:block;}
+
+/* TOAST PARTAGE */
+.toast-partage{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--n3);border:1px solid rgba(201,168,76,.3);border-left:3px solid var(--or);color:var(--blanc);padding:.8rem 1.5rem;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.08em;z-index:999;opacity:0;transition:all .4s;pointer-events:none;white-space:nowrap;}
+.toast-partage.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.evide{text-align:center;padding:3rem;color:var(--gris);font-size:.85rem;border:1px dashed rgba(201,168,76,.12);}
+
+footer{background:var(--n2);border-top:1px solid rgba(201,168,76,.1);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:4rem;}
+.ft-cp{font-size:.72rem;color:var(--gris);font-family:'Space Mono',monospace;}
+.ft-links{display:flex;gap:1.5rem;}
+.ft-links a{font-size:.75rem;color:var(--gris);text-decoration:none;transition:color .3s;}
+.ft-links a:hover{color:var(--or);}
+
+@keyframes su{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:640px){nav{padding:1rem 1.2rem;}.nlinks{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(8,8,8,.98);flex-direction:column;padding:1.5rem;gap:0;border-bottom:1px solid rgba(201,168,76,.1);}.nlinks.open{display:flex;}.nl{padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.04);width:100%;}.burger{display:block;}.page-hero{padding:6rem 1.5rem 2.5rem;}.filtres{padding:1.5rem;}.offres-container{padding:2rem 1rem;}.offre-actions{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nlogo">
+    <span class="nlogo-m">NEXUM ALPHA</span>
+    <span class="nlogo-s">Hub d'Expertise · Afrique de l'Ouest</span>
+  </a>
+  <button class="burger" id="burger" onclick="toggleMenu()">☰</button>
+  <div class="nlinks" id="nlinks">
+    <a href="index.html" class="nl">Accueil</a>
+    <a href="secteurs.html" class="nl">Secteurs</a>
+    <a href="offres.html" class="nl active">Offres</a>
+    <a href="boutique.html" class="nl">Boutique</a>
+    <a href="rejoindre.html" class="nl">Rejoindre</a>
+    <a href="membre.html" class="nl nl-mem">ESPACE MEMBRE</a>
+    <a href="admin.html" class="nl nl-adm">ADMIN</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="sec-tag">Recrutements</div>
+  <h1 class="page-tit">OFFRES<br>EN COURS</h1>
+  <p class="page-sub">Rejoignez l'équipe Nexum Alpha. Postulez directement ou partagez l'offre autour de vous.</p>
+</div>
+
+<div class="filtres">
+  <span class="filtre-label">Filtrer :</span>
+  <button class="filtre-btn actif" onclick="filtrer('tous',this)">Tous</button>
+  <button class="filtre-btn" onclick="filtrer('CDI',this)">CDI</button>
+  <button class="filtre-btn" onclick="filtrer('CDD',this)">CDD</button>
+  <button class="filtre-btn" onclick="filtrer('Stage',this)">Stage</button>
+  <button class="filtre-btn" onclick="filtrer('Freelance',this)">Freelance</button>
+</div>
+
+<div class="offres-container">
+  <div id="offres-list"><div class="evide">Chargement des offres…</div></div>
+</div>
+
+<!-- MODAL POSTULER -->
+<div class="overlay" id="modal-postuler">
+  <div class="modal">
+    <button class="modal-fermer" onclick="fermerModal()">×</button>
+    <div class="modal-tag">Candidature</div>
+    <h2 class="modal-tit" id="modal-offre-titre">Postuler</h2>
+    <p style="font-size:.85rem;color:var(--gris);margin-bottom:1.5rem;line-height:1.6">Votre candidature sera transmise à l'équipe Nexum Alpha. Un retour vous sera donné sous 48h.</p>
+    <div class="fg"><label>Nom complet *</label><input id="c-nom" placeholder="Prénom et nom"/></div>
+    <div class="fg"><label>Email *</label><input type="email" id="c-email" placeholder="votre@email.com"/></div>
+    <div class="fg"><label>Téléphone</label><input type="tel" id="c-tel" placeholder="+229 XX XX XX XX"/></div>
+    <div class="fg"><label>Message de motivation *</label><textarea id="c-motiv" placeholder="Pourquoi êtes-vous le bon candidat pour ce poste ?"></textarea></div>
+    <div class="fg"><label>Lien CV (Google Drive, LinkedIn…)</label><input id="c-cv" placeholder="https://..."/></div>
+    <button class="btn-sub" id="btn-postuler" onclick="envoyerCandidature()">ENVOYER MA CANDIDATURE</button>
+    <div class="mf" id="msg-candidature"></div>
+  </div>
+</div>
+
+<div class="toast-partage" id="toast-partage">✓ Lien copié dans le presse-papier !</div>
+
+<footer>
+  <div class="ft-cp">© 2026 NEXUM ALPHA</div>
+  <div class="ft-links">
+    <a href="index.html">Accueil</a>
+    <a href="rejoindre.html">Rejoindre</a>
+    <a href="membre.html">Espace membre</a>
+  </div>
+</footer>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,collection,getDocs,addDoc,serverTimestamp,query,orderBy}
+  from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const db=getFirestore(initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"393395005974",appId:"1:393395005974:web:b71d39b636dad8e153e337"}));
+
+let toutesOffres=[];
+let offreActive=null;
+
+async function charger(){
+  const c=document.getElementById('offres-list');
+  try{
+    const s=await getDocs(query(collection(db,'offres'),orderBy('createdAt','desc')));
+    if(s.empty){c.innerHTML='<div class="evide">Aucune offre disponible pour le moment.<br>Revenez bientôt !</div>';return;}
+    toutesOffres=[];
+    s.forEach(d=>toutesOffres.push({id:d.id,...d.data()}));
+    afficherOffres(toutesOffres);
+  }catch(e){c.innerHTML='<div class="evide">Impossible de charger les offres.</div>';}
+}
+
+function afficherOffres(offres){
+  const c=document.getElementById('offres-list');
+  if(!offres.length){c.innerHTML='<div class="evide">Aucune offre dans cette catégorie.</div>';return;}
+  c.innerHTML='';
+  offres.forEach(o=>{
+    const card=document.createElement('div');card.className='offre-card';card.id='offre-'+o.id;
+    const dt=o.createdAt?.toDate?.();
+    const dateStr=dt?dt.toLocaleDateString('fr-FR'):'';
+    const waMsg=encodeURIComponent(`🔔 Offre Nexum Alpha : *${o.titre}*\n📍 ${o.lieu||'Bénin'} | ${o.type||'Offre'}\n\nPostuler sur : ${window.location.href}`);
+    card.innerHTML=`
+      <div class="offre-header" onclick="toggleOffre('${o.id}')">
+        <div>
+          <div class="offre-tit">${o.titre||'—'}</div>
+          <div class="offre-meta">
+            <span>📍 ${o.lieu||'Non précisé'}</span>
+            <span>🏢 ${o.secteur||'—'}</span>
+            ${dateStr?`<span>📅 ${dateStr}</span>`:''}
+          </div>
+        </div>
+        <div class="offre-right">
+          <span class="tag">${o.type||'OFFRE'}</span>
+          <span class="offre-toggle">▼</span>
+        </div>
+      </div>
+      <div class="offre-body">
+        <div class="offre-desc">${o.description||'Aucune description disponible.'}</div>
+        <div class="offre-actions">
+          <button class="btn-postuler" onclick="ouvrirPostuler('${o.id}','${(o.titre||'').replace(/'/g,"\\'")}')">✉️ POSTULER</button>
+          <button class="btn-partager" onclick="partagerLien('${o.id}','${(o.titre||'').replace(/'/g,"\\'")}')">🔗 COPIER LE LIEN</button>
+          <a class="btn-wa" href="https://wa.me/?text=${waMsg}" target="_blank">💬 PARTAGER SUR WHATSAPP</a>
+        </div>
+      </div>
+    `;
+    c.appendChild(card);
+  });
+  // Ouvrir depuis URL
+  const hash=window.location.hash.replace('#','');
+  if(hash)setTimeout(()=>toggleOffre(hash),300);
+}
+
+window.toggleOffre=function(id){
+  const card=document.getElementById('offre-'+id);
+  if(!card)return;
+  const wasOpen=card.classList.contains('open');
+  document.querySelectorAll('.offre-card.open').forEach(c=>c.classList.remove('open'));
+  if(!wasOpen)card.classList.add('open');
+};
+
+window.filtrer=function(type,btn){
+  document.querySelectorAll('.filtre-btn').forEach(b=>b.classList.remove('actif'));
+  btn.classList.add('actif');
+  if(type==='tous')afficherOffres(toutesOffres);
+  else afficherOffres(toutesOffres.filter(o=>o.type===type));
+};
+
+window.ouvrirPostuler=function(id,titre){
+  offreActive={id,titre};
+  document.getElementById('modal-offre-titre').textContent='Postuler — '+titre;
+  document.getElementById('modal-postuler').classList.add('open');
+};
+
+window.fermerModal=function(){
+  document.getElementById('modal-postuler').classList.remove('open');
+};
+
+document.getElementById('modal-postuler').addEventListener('click',e=>{
+  if(e.target===e.currentTarget)fermerModal();
+});
+
+window.partagerLien=function(id,titre){
+  const url=`${window.location.origin}${window.location.pathname}#${id}`;
+  navigator.clipboard.writeText(url).then(()=>{
+    const t=document.getElementById('toast-partage');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2500);
+  });
+};
+
+window.envoyerCandidature=async function(){
+  const nom=document.getElementById('c-nom').value.trim();
+  const email=document.getElementById('c-email').value.trim();
+  const motiv=document.getElementById('c-motiv').value.trim();
+  const msg=document.getElementById('msg-candidature');
+  const btn=document.getElementById('btn-postuler');
+  if(!nom||!email||!motiv){msg.className='mf err';msg.textContent='Nom, email et motivation sont obligatoires.';return;}
+  btn.disabled=true;btn.textContent='Envoi…';
+  try{
+    await addDoc(collection(db,'candidatures'),{
+      nom,email,
+      tel:document.getElementById('c-tel').value.trim(),
+      motiv,
+      cv:document.getElementById('c-cv').value.trim(),
+      offreId:offreActive?.id||'',
+      offreTitre:offreActive?.titre||'',
+      statut:'nouvelle',
+      createdAt:serverTimestamp()
+    });
+    msg.className='mf ok';
+    msg.textContent='✓ Candidature envoyée ! L\'équipe Nexum Alpha vous répondra sous 48h.';
+    btn.textContent='CANDIDATURE ENVOYÉE';
+    ['c-nom','c-email','c-tel','c-motiv','c-cv'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){
+    msg.className='mf err';msg.textContent='Erreur. Réessayez.';
+    btn.disabled=false;btn.textContent='ENVOYER MA CANDIDATURE';
+  }
+};
+
+charger();
+</script>
+<script>function toggleMenu(){document.getElementById('nlinks').classList.toggle('open');}</script>
+</body>
+</html>
