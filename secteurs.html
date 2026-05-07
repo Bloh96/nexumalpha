@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NEXUM ALPHA | Secteurs d'expertise</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--or:#C9A84C;--or2:#E8C87A;--or3:#9A7A30;--noir:#080808;--n2:#0F0F0F;--n3:#171717;--n4:#202020;--blanc:#F2EDE4;--gris:#7A7670;--vert:#1E5C3A;--vert2:#3A9E6A;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--noir);color:var(--blanc);font-family:'Cormorant Garamond',serif;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.5;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(8,8,8,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.1);}
+.nlogo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
+.nlogo-m{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.2em;color:var(--or);}
+.nlogo-s{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.25em;color:var(--gris);}
+.nlinks{display:flex;gap:1.5rem;align-items:center;}
+.nl{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--gris);text-decoration:none;text-transform:uppercase;transition:color .3s;padding:.3rem 0;position:relative;}
+.nl::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--or);transition:width .3s;}
+.nl:hover{color:var(--or);}.nl:hover::after{width:100%;}
+.nl.active{color:var(--or);}.nl.active::after{width:100%;}
+.nl-mem{background:var(--or);color:var(--noir)!important;padding:.4rem 1rem!important;transition:background .3s!important;}.nl-mem:hover{background:var(--or2)!important;}.nl-mem::after{display:none!important;}
+.nl-adm{border:1px solid rgba(201,168,76,.3);color:var(--or)!important;padding:.4rem .9rem!important;}.nl-adm::after{display:none!important;}
+.burger{display:none;background:none;border:none;color:var(--or);font-size:1.4rem;cursor:pointer;}
+
+.page-hero{padding:8rem 3rem 5rem;position:relative;overflow:hidden;}
+.page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 80% 50%,rgba(30,92,58,.12) 0%,transparent 65%);}
+.sec-tag{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.3em;color:var(--or);text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem;}
+.sec-tag::before{content:'';width:24px;height:1px;background:var(--or);}
+.page-tit{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6.5rem);letter-spacing:.04em;line-height:.9;position:relative;z-index:1;}
+.page-tit em{color:var(--or);font-style:normal;}
+.page-sub{font-size:1.1rem;color:var(--gris);line-height:1.75;max-width:520px;margin-top:1.5rem;position:relative;z-index:1;}
+
+/* SECTEURS */
+.secteurs-wrap{max-width:1100px;margin:0 auto;padding:4rem 3rem;}
+.secteur-full{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;padding:4rem 0;border-bottom:1px solid rgba(201,168,76,.08);}
+.secteur-full:last-child{border-bottom:none;}
+.secteur-full:nth-child(even){direction:rtl;}
+.secteur-full:nth-child(even)>*{direction:ltr;}
+.sf-left{}
+.sf-num{font-family:'Bebas Neue',sans-serif;font-size:6rem;color:rgba(201,168,76,.08);line-height:1;margin-bottom:-.5rem;}
+.sf-ico{font-size:2.5rem;margin-bottom:1rem;}
+.sf-nom{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.05em;margin-bottom:1rem;}
+.sf-desc{font-size:1rem;color:var(--gris);line-height:1.8;margin-bottom:1.5rem;}
+.sf-link{display:inline-flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.12em;color:var(--or);text-decoration:none;padding:.6rem 1.4rem;border:1px solid var(--or);transition:all .3s;}
+.sf-link:hover{background:var(--or);color:var(--noir);}
+.sf-right{}
+.sf-items{display:flex;flex-direction:column;gap:.8rem;}
+.sf-item{background:var(--n2);border:1px solid rgba(201,168,76,.1);padding:1.2rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:border-color .3s;}
+.sf-item:hover{border-color:rgba(201,168,76,.25);}
+.sf-item-ico{font-size:1.2rem;flex-shrink:0;margin-top:.1rem;}
+.sf-item-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;margin-bottom:.2rem;}
+.sf-item-desc{font-size:.83rem;color:var(--gris);line-height:1.5;}
+
+/* CHALLENGES + DOCS */
+.section-simple{padding:4rem 3rem;background:var(--n2);border-top:1px solid rgba(201,168,76,.08);}
+.sec-wrap{max-width:1100px;margin:0 auto;}
+.chall-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2rem;}
+.chall-card{background:var(--noir);border:1px solid rgba(201,168,76,.1);padding:2rem;}
+.cst{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;display:inline-block;margin-bottom:1rem;}
+.cst.ec{background:rgba(30,92,58,.2);color:var(--vert2);border:1px solid var(--vert);}
+.cst.te{background:rgba(201,168,76,.1);color:var(--or);border:1px solid rgba(201,168,76,.3);}
+.cst.av{background:rgba(255,255,255,.04);color:var(--gris);border:1px solid rgba(255,255,255,.1);}
+.cti{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;margin-bottom:.5rem;}
+.cde{font-size:.88rem;color:var(--gris);line-height:1.6;}
+.doc-ligne{display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;margin-bottom:.6rem;background:var(--noir);border:1px solid rgba(201,168,76,.07);text-decoration:none;color:var(--blanc);transition:border-color .3s;margin-top:.5rem;}
+.doc-ligne:hover{border-color:var(--or);}
+.evide{text-align:center;padding:2.5rem;color:var(--gris);font-size:.85rem;border:1px dashed rgba(201,168,76,.12);}
+
+/* CTA */
+.cta-band{background:var(--noir);border-top:1px solid rgba(201,168,76,.08);padding:5rem 3rem;text-align:center;}
+.cta-tit{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4.5rem);letter-spacing:.04em;line-height:.95;margin-bottom:1.5rem;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.bor{background:var(--or);color:var(--noir);padding:.9rem 2.2rem;border:none;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.18em;cursor:pointer;text-decoration:none;display:inline-block;transition:all .3s;}
+.bor:hover{background:var(--or2);}
+.bctr{background:transparent;color:var(--blanc);padding:.9rem 2.2rem;border:1px solid rgba(242,237,228,.18);font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.18em;cursor:pointer;text-decoration:none;display:inline-block;transition:all .3s;}
+.bctr:hover{border-color:var(--or);color:var(--or);}
+
+footer{background:var(--n2);border-top:1px solid rgba(201,168,76,.1);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.ft-cp{font-size:.72rem;color:var(--gris);font-family:'Space Mono',monospace;}
+.ft-links{display:flex;gap:1.5rem;}
+.ft-links a{font-size:.75rem;color:var(--gris);text-decoration:none;transition:color .3s;}
+.ft-links a:hover{color:var(--or);}
+
+@media(max-width:900px){.secteur-full{grid-template-columns:1fr;gap:2rem;}.secteur-full:nth-child(even){direction:ltr;}}
+@media(max-width:640px){nav{padding:1rem 1.2rem;}.nlinks{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(8,8,8,.98);flex-direction:column;padding:1.5rem;gap:0;border-bottom:1px solid rgba(201,168,76,.1);}.nlinks.open{display:flex;}.nl{padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.04);width:100%;}.burger{display:block;}.page-hero,.secteurs-wrap,.section-simple{padding:4rem 1.5rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nlogo"><span class="nlogo-m">NEXUM ALPHA</span><span class="nlogo-s">Hub d'Expertise · Afrique de l'Ouest</span></a>
+  <button class="burger" id="burger" onclick="toggleMenu()">☰</button>
+  <div class="nlinks" id="nlinks">
+    <a href="index.html" class="nl">Accueil</a>
+    <a href="secteurs.html" class="nl active">Secteurs</a>
+    <a href="offres.html" class="nl">Offres</a>
+    <a href="boutique.html" class="nl">Boutique</a>
+    <a href="rejoindre.html" class="nl">Rejoindre</a>
+    <a href="membre.html" class="nl nl-mem">ESPACE MEMBRE</a>
+    <a href="admin.html" class="nl nl-adm">ADMIN</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="sec-tag">Domaines</div>
+  <h1 class="page-tit">NOS SECTEURS<br><em>D'EXPERTISE</em></h1>
+  <p class="page-sub">Quatre pôles complémentaires qui couvrent les besoins essentiels du développement économique et social en Afrique de l'Ouest.</p>
+</div>
+
+<div class="secteurs-wrap">
+
+  <div class="secteur-full">
+    <div class="sf-left">
+      <div class="sf-num">01</div>
+      <div class="sf-ico">🔬</div>
+      <div class="sf-nom">Recherche & Réalisation</div>
+      <div class="sf-desc">Nous concevons et mettons en œuvre des projets complexes alliant rigueur scientifique et impact concret sur le terrain. De l'idée à la réalisation, notre expertise couvre tout le cycle de vie d'un projet.</div>
+      <a href="offres.html" class="sf-link">VOIR LES OFFRES →</a>
+    </div>
+    <div class="sf-right">
+      <div class="sf-items">
+        <div class="sf-item"><div class="sf-item-ico">🧪</div><div><div class="sf-item-title">Recherche appliquée</div><div class="sf-item-desc">Études et analyses scientifiques au service des décideurs et organisations.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">📐</div><div><div class="sf-item-title">Gestion de projets complexes</div><div class="sf-item-desc">Pilotage de A à Z avec méthodologies éprouvées (Agile, PMI).</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">🌍</div><div><div class="sf-item-title">Impact territorial</div><div class="sf-item-desc">Projets à fort impact social, économique et environnemental.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">🤝</div><div><div class="sf-item-title">Partenariats institutionnels</div><div class="sf-item-desc">Collaboration avec ONG, gouvernements et organisations internationales.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="secteur-full">
+    <div class="sf-left">
+      <div class="sf-num">02</div>
+      <div class="sf-ico">📊</div>
+      <div class="sf-nom">Consulting & Analyse</div>
+      <div class="sf-desc">Nous accompagnons les organisations dans leurs décisions stratégiques grâce à des analyses financières pointues, des audits rigoureux et un conseil adapté au contexte africain.</div>
+      <a href="offres.html" class="sf-link">VOIR LES OFFRES →</a>
+    </div>
+    <div class="sf-right">
+      <div class="sf-items">
+        <div class="sf-item"><div class="sf-item-ico">💰</div><div><div class="sf-item-title">Analyse financière</div><div class="sf-item-desc">Évaluation d'entreprises, modélisation financière et business plans.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">🔍</div><div><div class="sf-item-title">Audits stratégiques</div><div class="sf-item-desc">Diagnostics organisationnels et recommandations opérationnelles.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">📈</div><div><div class="sf-item-title">Développement commercial</div><div class="sf-item-desc">Stratégies de croissance, expansion de marché et positionnement.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">🎯</div><div><div class="sf-item-title">Conseil en gouvernance</div><div class="sf-item-desc">Amélioration des structures de direction et processus décisionnels.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="secteur-full">
+    <div class="sf-left">
+      <div class="sf-num">03</div>
+      <div class="sf-ico">🌿</div>
+      <div class="sf-nom">Bio Alimentaire</div>
+      <div class="sf-desc">L'alimentation est au cœur du développement africain. Nous intervenons sur toute la chaîne de valeur, de la production agricole à la distribution, avec une expertise en biotechnologies et sécurité alimentaire.</div>
+      <a href="offres.html" class="sf-link">VOIR LES OFFRES →</a>
+    </div>
+    <div class="sf-right">
+      <div class="sf-items">
+        <div class="sf-item"><div class="sf-item-ico">🌾</div><div><div class="sf-item-title">Sécurité alimentaire</div><div class="sf-item-desc">Normes, certifications et contrôle qualité des produits alimentaires.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">🧬</div><div><div class="sf-item-title">Biotechnologies agricoles</div><div class="sf-item-desc">Innovation variétale, amélioration génétique et agriculture de précision.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">🚜</div><div><div class="sf-item-title">Chaînes de valeur agricoles</div><div class="sf-item-desc">Optimisation des filières de production et circuits de distribution.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">♻️</div><div><div class="sf-item-title">Agriculture durable</div><div class="sf-item-desc">Pratiques écologiques et adaptation aux changements climatiques.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="secteur-full">
+    <div class="sf-left">
+      <div class="sf-num">04</div>
+      <div class="sf-ico">💻</div>
+      <div class="sf-nom">Formation Informatique</div>
+      <div class="sf-desc">La transformation numérique de l'Afrique passe par la formation. Nous développons les compétences digitales des individus et organisations pour les rendre compétitifs dans l'économie numérique mondiale.</div>
+      <a href="offres.html" class="sf-link">VOIR LES OFFRES →</a>
+    </div>
+    <div class="sf-right">
+      <div class="sf-items">
+        <div class="sf-item"><div class="sf-item-ico">💡</div><div><div class="sf-item-title">Développement web & mobile</div><div class="sf-item-desc">Formation aux langages et frameworks modernes (HTML, CSS, JS, React).</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">🤖</div><div><div class="sf-item-title">Intelligence artificielle</div><div class="sf-item-desc">Initiation au machine learning, data science et outils IA.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">🔐</div><div><div class="sf-item-title">Cybersécurité</div><div class="sf-item-desc">Protection des données, sécurité des systèmes et bonnes pratiques.</div></div></div>
+        <div class="sf-item"><div class="sf-item-ico">☁️</div><div><div class="sf-item-title">Cloud & Infrastructure</div><div class="sf-item-desc">Déploiement cloud, DevOps et gestion d'infrastructures numériques.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CHALLENGES -->
+<div class="section-simple">
+  <div class="sec-wrap">
+    <div class="sec-tag">Challenges</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.04em;margin-bottom:.5rem">CHALLENGES & RÉSULTATS</h2>
+    <p style="font-size:.9rem;color:var(--gris);margin-bottom:1.5rem">Participez à nos challenges sectoriels et mesurez-vous aux meilleurs talents.</p>
+    <div class="chall-grid" id="chall-list"><div class="evide">Chargement…</div></div>
+    <div style="margin-top:2rem">
+      <div class="sec-tag" style="margin-top:2rem">Documents</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.04em;margin-bottom:.5rem">RESSOURCES PUBLIÉES</h2>
+      <div id="docs-list"><div class="evide">Chargement…</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-band">
+  <h2 class="cta-tit">REJOIGNEZ UN SECTEUR<br>QUI VOUS RESSEMBLE</h2>
+  <div class="cta-btns">
+    <a href="rejoindre.html" class="bor">SOUMETTRE MA CANDIDATURE</a>
+    <a href="offres.html" class="bctr">VOIR LES OFFRES →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-cp">© 2026 NEXUM ALPHA — Tous droits réservés</div>
+  <div class="ft-links">
+    <a href="index.html">Accueil</a><a href="offres.html">Offres</a>
+    <a href="boutique.html">Boutique</a><a href="rejoindre.html">Rejoindre</a>
+  </div>
+</footer>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,collection,getDocs,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const db=getFirestore(initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"393395005974",appId:"1:393395005974:web:b71d39b636dad8e153e337"}));
+
+async function challenges(){
+  const c=document.getElementById('chall-list');
+  try{
+    const s=await getDocs(query(collection(db,'challenges'),orderBy('createdAt','desc')));
+    if(s.empty){c.innerHTML='<div class="evide">Aucun challenge publié pour le moment.</div>';return;}
+    c.innerHTML='';
+    s.forEach(d=>{const ch=d.data();const sc=ch.statut==='En cours'?'ec':ch.statut==='Terminé'?'te':'av';
+      const el=document.createElement('div');el.className='chall-card';
+      el.innerHTML=`<span class="cst ${sc}">${ch.statut||'À venir'}</span><div class="cti">${ch.titre||'—'}</div><div class="cde">${ch.description||''}</div>${ch.resultats?`<div style="margin-top:1rem;padding:.7rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);font-size:.82rem;color:var(--or2)">${ch.resultats}</div>`:''}`;
+      c.appendChild(el);
+    });
+  }catch(e){}
+}
+
+async function docs(){
+  const c=document.getElementById('docs-list');
+  try{
+    const s=await getDocs(query(collection(db,'documents'),orderBy('createdAt','desc')));
+    if(s.empty){c.innerHTML='<div class="evide">Aucun document publié.</div>';return;}
+    c.innerHTML='';
+    s.forEach(d=>{const dc=d.data();
+      const el=document.createElement('a');el.className='doc-ligne';el.href=dc.url||'#';el.target='_blank';
+      el.innerHTML=`<span style="color:var(--or)">📄</span><span style="flex:1">${dc.nom||'Document'}</span><span style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--gris)">${dc.type||'PDF'}</span>`;
+      c.appendChild(el);
+    });
+  }catch(e){}
+}
+
+challenges();docs();
+</script>
+<script>function toggleMenu(){document.getElementById('nlinks').classList.toggle('open');}</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NEXUM ALPHA | Rejoindre</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--or:#C9A84C;--or2:#E8C87A;--or3:#9A7A30;--noir:#080808;--n2:#0F0F0F;--n3:#171717;--n4:#202020;--blanc:#F2EDE4;--gris:#7A7670;--vert:#1E5C3A;--vert2:#3A9E6A;--rouge:#8B2020;--rouge2:#E07070;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--noir);color:var(--blanc);font-family:'Cormorant Garamond',serif;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.5;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(8,8,8,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.1);}
+.nlogo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
+.nlogo-m{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.2em;color:var(--or);}
+.nlogo-s{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.25em;color:var(--gris);}
+.nlinks{display:flex;gap:1.5rem;align-items:center;}
+.nl{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--gris);text-decoration:none;text-transform:uppercase;transition:color .3s;padding:.3rem 0;position:relative;}
+.nl::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--or);transition:width .3s;}
+.nl:hover{color:var(--or);}.nl:hover::after{width:100%;}
+.nl.active{color:var(--or);}.nl.active::after{width:100%;}
+.nl-mem{background:var(--or);color:var(--noir)!important;padding:.4rem 1rem!important;transition:background .3s!important;}.nl-mem:hover{background:var(--or2)!important;}.nl-mem::after{display:none!important;}
+.nl-adm{border:1px solid rgba(201,168,76,.3);color:var(--or)!important;padding:.4rem .9rem!important;}.nl-adm::after{display:none!important;}
+.burger{display:none;background:none;border:none;color:var(--or);font-size:1.4rem;cursor:pointer;}
+
+/* LAYOUT */
+.page-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;}
+
+/* GAUCHE */
+.left-panel{background:var(--n2);padding:8rem 4rem 4rem;border-right:1px solid rgba(201,168,76,.08);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.left-panel::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 20% 50%,rgba(30,92,58,.12) 0%,transparent 65%);}
+.lp-content{position:relative;z-index:1;}
+.sec-tag{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.3em;color:var(--or);text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem;}
+.sec-tag::before{content:'';width:24px;height:1px;background:var(--or);}
+.lp-tit{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,5rem);letter-spacing:.04em;line-height:.9;margin-bottom:1.5rem;}
+.lp-tit em{color:var(--or);font-style:normal;}
+.lp-desc{font-size:1rem;color:var(--gris);line-height:1.8;margin-bottom:2.5rem;}
+
+/* AVANTAGES */
+.avantages{display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem;}
+.av-item{display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.08);transition:border-color .3s;}
+.av-item:hover{border-color:rgba(201,168,76,.2);}
+.av-ico{font-size:1.4rem;flex-shrink:0;}
+.av-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;margin-bottom:.2rem;}
+.av-desc{font-size:.82rem;color:var(--gris);line-height:1.5;}
+
+/* DIR CARD */
+.dir-card{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.12);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+.dir-av{width:40px;height:40px;border-radius:50%;background:var(--or3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:var(--noir);flex-shrink:0;}
+.dir-name{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.05em;}
+.dir-title{font-size:.72rem;color:var(--gris);}
+
+/* DROITE — FORMULAIRE */
+.right-panel{padding:8rem 4rem 4rem;display:flex;align-items:center;justify-content:center;}
+.form-wrap{width:100%;max-width:480px;}
+.form-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em;margin-bottom:.3rem;}
+.form-sub{font-size:.85rem;color:var(--gris);margin-bottom:2rem;line-height:1.6;}
+.fg{margin-bottom:1rem;}
+.fg label{display:block;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--or);text-transform:uppercase;margin-bottom:.4rem;}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.07);color:var(--blanc);padding:.75rem .9rem;font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;transition:border-color .3s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--or);}
+.fg select option{background:var(--n3);}
+.fg textarea{resize:vertical;min-height:90px;}
+.fg-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.req{color:var(--or);}
+
+/* ÉTAPES */
+.etapes{display:flex;gap:.5rem;margin-bottom:2rem;}
+.et{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px;transition:background .4s;}
+.et.done{background:var(--or);}
+.et.actif{background:var(--or2);}
+
+.btn-sub{width:100%;background:var(--or);color:var(--noir);border:none;padding:1rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.15em;cursor:pointer;transition:background .3s;margin-top:.5rem;}
+.btn-sub:hover{background:var(--or2);}
+.btn-sub:disabled{opacity:.45;cursor:not-allowed;}
+.mf-msg{margin-top:.8rem;padding:.75rem 1rem;font-size:.85rem;display:none;}
+.mf-msg.ok{background:rgba(30,92,58,.2);border:1px solid var(--vert);color:var(--vert2);display:block;}
+.mf-msg.err{background:rgba(139,32,32,.2);border:1px solid var(--rouge);color:var(--rouge2);display:block;}
+
+/* SUCCÈS */
+#succes{display:none;text-align:center;padding:3rem 0;}
+.succes-ico{font-size:4rem;margin-bottom:1rem;}
+.succes-tit{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em;color:var(--or);margin-bottom:.5rem;}
+.succes-desc{font-size:.92rem;color:var(--gris);line-height:1.7;margin-bottom:2rem;}
+.btn-retour{display:inline-block;background:transparent;color:var(--or);border:1px solid var(--or);padding:.7rem 1.5rem;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.12em;text-decoration:none;transition:all .3s;}
+.btn-retour:hover{background:var(--or);color:var(--noir);}
+
+@media(max-width:900px){.page-wrap{grid-template-columns:1fr;}.left-panel{padding:7rem 2rem 3rem;}.right-panel{padding:3rem 2rem;}.fg-2{grid-template-columns:1fr;}}
+@media(max-width:640px){nav{padding:1rem 1.2rem;}.nlinks{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(8,8,8,.98);flex-direction:column;padding:1.5rem;gap:0;border-bottom:1px solid rgba(201,168,76,.1);}.nlinks.open{display:flex;}.nl{padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.04);width:100%;}.burger{display:block;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nlogo"><span class="nlogo-m">NEXUM ALPHA</span><span class="nlogo-s">Hub d'Expertise · Afrique de l'Ouest</span></a>
+  <button class="burger" id="burger" onclick="toggleMenu()">☰</button>
+  <div class="nlinks" id="nlinks">
+    <a href="index.html" class="nl">Accueil</a>
+    <a href="secteurs.html" class="nl">Secteurs</a>
+    <a href="offres.html" class="nl">Offres</a>
+    <a href="boutique.html" class="nl">Boutique</a>
+    <a href="rejoindre.html" class="nl active">Rejoindre</a>
+    <a href="membre.html" class="nl nl-mem">ESPACE MEMBRE</a>
+    <a href="admin.html" class="nl nl-adm">ADMIN</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <!-- GAUCHE -->
+  <div class="left-panel">
+    <div class="lp-content">
+      <div class="sec-tag">Adhésion</div>
+      <h1 class="lp-tit">REJOIGNEZ<br><em>L'EXCELLENCE</em></h1>
+      <p class="lp-desc">Nexum Alpha réunit des experts, chercheurs et professionnels engagés pour le développement de l'Afrique de l'Ouest. Votre place est parmi nous.</p>
+      <div class="avantages">
+        <div class="av-item">
+          <div class="av-ico">🪪</div>
+          <div><div class="av-title">ID Membre officiel</div><div class="av-desc">Un identifiant unique généré à votre validation. Badge officiel téléchargeable.</div></div>
+        </div>
+        <div class="av-item">
+          <div class="av-ico">📋</div>
+          <div><div class="av-title">Accès aux offres exclusives</div><div class="av-desc">Postulez aux offres Nexum Alpha depuis votre espace membre.</div></div>
+        </div>
+        <div class="av-item">
+          <div class="av-ico">🛒</div>
+          <div><div class="av-title">Boutique & formations</div><div class="av-desc">Accédez à nos formations et produits digitaux à tarif préférentiel.</div></div>
+        </div>
+        <div class="av-item">
+          <div class="av-ico">🤖</div>
+          <div><div class="av-title">Outils IA gratuits</div><div class="av-desc">Business Plan IA et Analyseur de CV disponibles sans limite.</div></div>
+        </div>
+      </div>
+      <div class="dir-card">
+        <div class="dir-av">JB</div>
+        <div>
+          <div class="dir-name">Joseph Dèwanou BLOH</div>
+          <div class="dir-title">Directeur des Opérations · Analyste & Économiste Financier</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DROITE -->
+  <div class="right-panel">
+    <div class="form-wrap">
+
+      <div id="form-section">
+        <div class="form-title">DEMANDE D'ADHÉSION</div>
+        <div class="form-sub">Remplissez ce formulaire. Votre dossier sera examiné et vous recevrez un email de réponse sous 48h.</div>
+
+        <div class="etapes">
+          <div class="et actif" id="et-1"></div>
+          <div class="et" id="et-2"></div>
+          <div class="et" id="et-3"></div>
+        </div>
+
+        <div class="fg"><label>Nom complet <span class="req">*</span></label><input id="r-nom" placeholder="Prénom et nom"/></div>
+        <div class="fg"><label>Email <span class="req">*</span></label><input type="email" id="r-email" placeholder="votre@email.com" oninput="updateEtapes()"/></div>
+        <div class="fg-2">
+          <div class="fg"><label>Téléphone</label><input type="tel" id="r-tel" placeholder="+229 XX XX XX XX"/></div>
+          <div class="fg"><label>Pays / Ville</label><input id="r-lieu" placeholder="Cotonou, Bénin"/></div>
+        </div>
+        <div class="fg"><label>Profession / Poste</label><input id="r-poste" placeholder="Ex : Ingénieur agronome" oninput="updateEtapes()"/></div>
+        <div class="fg"><label>Domaine d'intérêt</label>
+          <select id="r-dom" onchange="updateEtapes()">
+            <option value="">-- Sélectionner --</option>
+            <option>Recherche & Réalisation</option>
+            <option>Consulting & Analyse</option>
+            <option>Bio Alimentaire</option>
+            <option>Formation Informatique</option>
+          </select>
+        </div>
+        <div class="fg"><label>Motivation <span class="req">*</span></label><textarea id="r-mot" placeholder="Pourquoi souhaitez-vous rejoindre Nexum Alpha ? Quelles compétences apportez-vous ?" oninput="updateEtapes()"></textarea></div>
+
+        <button class="btn-sub" id="btn-reg" onclick="soumettre()">ENVOYER MA DEMANDE</button>
+        <div class="mf-msg" id="msg-reg"></div>
+
+        <p style="margin-top:1.5rem;font-size:.8rem;color:var(--gris);text-align:center">Déjà membre ? <a href="membre.html" style="color:var(--or);text-decoration:none">Connectez-vous ici →</a></p>
+      </div>
+
+      <!-- SUCCÈS -->
+      <div id="succes">
+        <div class="succes-ico">✅</div>
+        <div class="succes-tit">DEMANDE ENVOYÉE !</div>
+        <div class="succes-desc">Votre dossier a bien été reçu par l'équipe Nexum Alpha.<br>Vous recevrez un email de réponse sous <strong>48 heures</strong>.<br><br>En cas de validation, vous recevrez vos identifiants de connexion à l'espace membre.</div>
+        <a href="index.html" class="btn-retour">← RETOUR À L'ACCUEIL</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,collection,addDoc,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const db=getFirestore(initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"393395005974",appId:"1:393395005974:web:b71d39b636dad8e153e337"}));
+
+window.updateEtapes=function(){
+  const email=document.getElementById('r-email').value.trim();
+  const poste=document.getElementById('r-poste').value.trim();
+  const dom=document.getElementById('r-dom').value;
+  const mot=document.getElementById('r-mot').value.trim();
+  document.getElementById('et-1').className='et '+(email?'done':'actif');
+  document.getElementById('et-2').className='et '+(poste||dom?'done':email?'actif':'');
+  document.getElementById('et-3').className='et '+(mot?'done':(poste||dom)?'actif':'');
+};
+
+window.soumettre=async function(){
+  const nom=document.getElementById('r-nom').value.trim();
+  const email=document.getElementById('r-email').value.trim();
+  const motiv=document.getElementById('r-mot').value.trim();
+  const msg=document.getElementById('msg-reg');
+  const btn=document.getElementById('btn-reg');
+  if(!nom||!email){msg.className='mf-msg err';msg.textContent='Nom et email sont obligatoires.';return;}
+  if(!motiv){msg.className='mf-msg err';msg.textContent='Veuillez rédiger une courte motivation.';return;}
+  btn.disabled=true;btn.textContent='Envoi en cours…';
+  try{
+    await addDoc(collection(db,'demandes'),{
+      nom,email,
+      tel:document.getElementById('r-tel').value.trim(),
+      lieu:document.getElementById('r-lieu').value.trim(),
+      poste:document.getElementById('r-poste').value.trim(),
+      domaine:document.getElementById('r-dom').value,
+      motiv,statut:'en_attente',
+      createdAt:serverTimestamp()
+    });
+    document.getElementById('form-section').style.display='none';
+    document.getElementById('succes').style.display='block';
+  }catch(e){
+    msg.className='mf-msg err';msg.textContent='Erreur lors de l\'envoi. Veuillez réessayer.';
+    btn.disabled=false;btn.textContent='ENVOYER MA DEMANDE';
+  }
+};
+</script>
+<script>function toggleMenu(){document.getElementById('nlinks').classList.toggle('open');}</script>
+</body>
+</html>
