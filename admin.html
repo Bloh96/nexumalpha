@@ -15,7 +15,7 @@ body{background:var(--noir);color:var(--blanc);font-family:'Cormorant Garamond',
 .lbox{background:var(--n2);border:1px solid rgba(201,168,76,.2);padding:3rem 2.5rem;width:100%;max-width:380px;text-align:center;}
 .llogo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.2em;color:var(--or);margin-bottom:.3rem;}
 .lsub{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--gris);margin-bottom:2rem;}
-.linput{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.1);color:var(--blanc);padding:.88rem 1rem;font-family:'Space Mono',monospace;font-size:1rem;outline:none;text-align:center;letter-spacing:.25em;transition:border-color .3s;margin-bottom:.8rem;}
+.linput{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.1);color:var(--blanc);padding:.88rem 1rem;font-family:'Space Mono',monospace;font-size:1rem;outline:none;text-align:center;letter-spacing:.05em;}
 .linput:focus{border-color:var(--or);}
 .lbtn{width:100%;background:var(--or);color:var(--noir);border:none;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.2em;cursor:pointer;transition:background .3s;}
 .lbtn:hover{background:var(--or2);}
@@ -27,7 +27,7 @@ body{background:var(--noir);color:var(--blanc);font-family:'Cormorant Garamond',
 .ah-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.15em;color:var(--or);}
 .ah-logo span{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--gris);margin-left:.5rem;}
 .ah-acts{display:flex;gap:.8rem;align-items:center;}
-.abtn{background:none;border:1px solid rgba(255,255,255,.1);color:var(--gris);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.08em;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block;}
+.abtn{background:none;border:1px solid rgba(255,255,255,.1);color:var(--gris);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.08em;cursor:pointer;transition:all .2s;}
 .abtn:hover{border-color:var(--or);color:var(--or);}
 .abtn-d{border-color:rgba(139,32,32,.4);color:var(--rouge2);}
 .abtn-d:hover{background:var(--rouge);border-color:var(--rouge);color:var(--blanc);}
@@ -54,7 +54,7 @@ body{background:var(--noir);color:var(--blanc);font-family:'Cormorant Garamond',
 .fc-t{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;color:var(--or);border-bottom:1px solid rgba(201,168,76,.12);padding-bottom:.7rem;margin-bottom:1.5rem;}
 .fg{margin-bottom:1rem;}
 .fg label{display:block;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--or);text-transform:uppercase;margin-bottom:.4rem;}
-.fg input,.fg select,.fg textarea{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.07);color:var(--blanc);padding:.7rem .9rem;font-family:'Cormorant Garamond',serif;font-size:.95rem;outline:none;transition:border-color .3s;}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.07);color:var(--blanc);padding:.7rem .9rem;font-family:'Cormorant Garamond',serif;font-size:.95rem;outline:none;}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--or);}
 .fg select option{background:var(--n3);}
 .fg textarea{resize:vertical;min-height:80px;}
@@ -63,11 +63,11 @@ body{background:var(--noir);color:var(--blanc);font-family:'Cormorant Garamond',
 .bsav{background:var(--or);color:var(--noir);border:none;padding:.68rem 1.8rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;cursor:pointer;transition:background .3s;}
 .bsav:hover{background:var(--or2);}
 .bsav:disabled{opacity:.5;cursor:not-allowed;}
-.bval{background:rgba(30,92,58,.2);color:var(--vert2);border:1px solid var(--vert);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .3s;}
+.bval{background:rgba(30,92,58,.2);color:var(--vert2);border:1px solid var(--vert);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .2s;}
 .bval:hover{background:var(--vert);}
-.bref{background:transparent;color:var(--gris);border:1px solid rgba(255,255,255,.1);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .3s;}
+.bref{background:transparent;color:var(--gris);border:1px solid rgba(255,255,255,.1);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .2s;}
 .bref:hover{border-color:var(--rouge2);color:var(--rouge2);}
-.bdel{background:transparent;color:var(--rouge2);border:1px solid var(--rouge2);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .3s;}
+.bdel{background:transparent;color:var(--rouge2);border:1px solid var(--rouge2);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .2s;}
 .bdel:hover{background:var(--rouge);}
 .mf{margin-top:.8rem;padding:.75rem 1rem;font-size:.85rem;display:none;}
 .mf.ok{background:rgba(30,92,58,.2);border:1px solid var(--vert);color:var(--vert2);display:block;}
@@ -98,7 +98,7 @@ tbody td{padding:.82rem 1rem;vertical-align:middle;}
 .bm-org{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.15em;color:var(--or);}
 .bm-sub{font-family:'Space Mono',monospace;font-size:.38rem;color:var(--gris);}
 .bm-body{padding:1rem;display:flex;gap:.8rem;}
-.bm-photo{width:55px;height:68px;background:var(--n4);border:1px solid rgba(201,168,76,.15);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:var(--gris);font-family:'Space Mono',monospace;}
+.bm-photo{width:55px;height:68px;background:var(--n4);border:1px solid rgba(201,168,76,.15);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:var(--gris);}
 .bm-photo img{width:100%;height:100%;object-fit:cover;}
 .bm-info{}
 .bm-name{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.05em;line-height:1.1;}
@@ -110,7 +110,7 @@ tbody td{padding:.82rem 1rem;vertical-align:middle;}
 .bm-bar2{height:3px;background:linear-gradient(90deg,var(--or),var(--or2),var(--or3));}
 
 /* TOAST */
-#toast{position:fixed;bottom:2rem;right:2rem;background:var(--n3);border:1px solid rgba(201,168,76,.3);color:var(--blanc);padding:.9rem 1.5rem;font-size:.85rem;border-left:3px solid var(--or);z-index:9999;transform:translateY(20px);opacity:0;transition:all .4s;pointer-events:none;}
+#toast{position:fixed;bottom:2rem;right:2rem;background:var(--n3);border:1px solid rgba(201,168,76,.3);color:var(--blanc);padding:.9rem 1.5rem;font-size:.85rem;border-left:3px solid var(--or);z-index:9001;transform:translateY(200px);opacity:0;transition:all .3s;}
 #toast.show{transform:translateY(0);opacity:1;}
 #toast.err{border-left-color:var(--rouge2);}
 
@@ -121,7 +121,7 @@ tbody td{padding:.82rem 1rem;vertical-align:middle;}
 .mferm{position:absolute;top:1rem;right:1.5rem;background:none;border:none;color:var(--gris);font-size:1.8rem;cursor:pointer;}
 .mferm:hover{color:var(--blanc);}
 
-@media(max-width:768px){.al{grid-template-columns:1fr;}.sb{display:flex;overflow-x:auto;padding:.5rem;border-right:none;border-bottom:1px solid rgba(201,168,76,.08);}.scat{display:none;}.si{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;padding:.6rem 1rem;}.si.actif{border-bottom-color:var(--or);border-left-color:transparent;}.fg-2,.fg-3{grid-template-columns:1fr;}.mc{padding:1.5rem 1rem;}}
+@media(max-width:768px){.al{grid-template-columns:1fr;}.sb{display:flex;overflow-x:auto;padding:.5rem;border-right:none;border-bottom:1px solid rgba(201,168,76,.08);}.scat{display:none;}.si{white-space:nowrap;}}
 </style>
 </head>
 <body>
@@ -391,18 +391,6 @@ tbody td{padding:.82rem 1rem;vertical-align:middle;}
         </div>
       </div>
 
-      <!-- CANDIDATURES -->
-      <div class="pg" id="pg-candidatures">
-        <h1 class="ptit">CANDIDATURES</h1>
-        <p class="psub">Candidatures reçues depuis la page Offres. Contactez ou archivez chaque candidat.</p>
-        <div class="fc" style="padding:0">
-          <div class="tw"><table>
-            <thead><tr><th>Candidat</th><th>Email</th><th>Offre visée</th><th>CV</th><th>Statut</th><th>Date</th><th>Actions</th></tr></thead>
-            <tbody id="tb-cand"><tr><td colspan="7" class="evide">Chargement…</td></tr></tbody>
-          </table></div>
-        </div>
-      </div>
-
     </main>
   </div>
 </div>
@@ -412,7 +400,7 @@ tbody td{padding:.82rem 1rem;vertical-align:middle;}
 <!-- MODAL MOTIVATION -->
 <div style="position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:800;display:none;align-items:center;justify-content:center;padding:2rem" id="modal-motiv">
   <div style="background:var(--n2);border:1px solid rgba(201,168,76,.2);max-width:540px;width:100%;padding:2.5rem;position:relative;max-height:85vh;overflow-y:auto">
-    <button onclick="document.getElementById('modal-motiv').style.display='none'" style="position:absolute;top:1rem;right:1.5rem;background:none;border:none;color:var(--gris);font-size:1.8rem;cursor:pointer">×</button>
+    <button onclick="document.getElementById('modal-motiv').style.display='none'" style="position:absolute;top:1rem;right:1.5rem;background:none;border:none;color:var(--gris);font-size:1.8rem;cursor:pointer;">×</button>
     <div style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--or);text-transform:uppercase;margin-bottom:.5rem">Motivation du candidat</div>
     <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:1.2rem" id="modal-cand-nom">—</div>
     <div style="font-size:.92rem;color:var(--gris);line-height:1.8;white-space:pre-wrap" id="modal-cand-motiv">—</div>
@@ -446,7 +434,7 @@ async function envoyerEmail(to_email, to_name, sujet, message){
   }catch(e){ console.error("EmailJS erreur:", e); }
 }
 
-const app=initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"393395005974",appId:"1:393395005974:web:b71d39b636dad8e153e337"});
+const app=initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"589033607598",appId:"1:589033607598:web:b33c83e74d90a1c9c1f169"});
 const db=getFirestore(app);
 const auth=getAuth(app);
 
@@ -555,7 +543,7 @@ async function chargerOffres(){
     tb.innerHTML='';
     s.forEach(d=>{const o=d.data();const id=d.id;
       const tr=document.createElement('tr');
-      tr.innerHTML=`<td>${o.titre||'—'}</td><td><span class="badge-st bs-att">${o.type||'—'}</span></td><td>${o.secteur||'—'}</td><td>${fd(o.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('offres','${id}',chargerOffres)">Supprimer</button></div></td>`;
+      tr.innerHTML=`<td>${o.titre||'—'}</td><td><span class="badge-st bs-att">${o.type||'—'}</span></td><td>${o.secteur||'—'}</td><td>${fd(o.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('offres','${id}',chargerOffres)">Suppr.</button></div></td>`;
       tb.appendChild(tr);
     });
   }catch(e){tb.innerHTML=`<tr><td colspan="5" class="evide">Erreur.</td></tr>`;}
@@ -580,7 +568,7 @@ async function chargerChallenges(){
     s.forEach(d=>{const c=d.data();const id=d.id;
       const sc=c.statut==='En cours'?'bs-ec':c.statut==='Terminé'?'bs-te':'bs-av';
       const tr=document.createElement('tr');
-      tr.innerHTML=`<td>${c.titre||'—'}</td><td><span class="badge-st ${sc}">${c.statut||'—'}</span></td><td>${fd(c.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('challenges','${id}',chargerChallenges)">Supprimer</button></div></td>`;
+      tr.innerHTML=`<td>${c.titre||'—'}</td><td><span class="badge-st ${sc}">${c.statut||'—'}</span></td><td>${fd(c.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('challenges','${id}',chargerChallenges)">Suppr.</button></div></td>`;
       tb.appendChild(tr);
     });
   }catch(e){}
@@ -604,7 +592,7 @@ async function chargerDocs(){
     tb.innerHTML='';
     s.forEach(d=>{const dc=d.data();const id=d.id;
       const tr=document.createElement('tr');
-      tr.innerHTML=`<td><a href="${dc.url}" target="_blank" style="color:var(--or2)">${dc.nom||'—'}</a></td><td><span class="badge-st bs-att">${dc.type||'—'}</span></td><td>${fd(dc.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('documents','${id}',chargerDocs)">Supprimer</button></div></td>`;
+      tr.innerHTML=`<td><a href="${dc.url}" target="_blank" style="color:var(--or2)">${dc.nom||'—'}</a></td><td><span class="badge-st bs-att">${dc.type||'—'}</span></td><td>${fd(dc.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('documents','${id}',chargerDocs)">Suppr.</button></div></td>`;
       tb.appendChild(tr);
     });
   }catch(e){}
@@ -629,7 +617,7 @@ async function chargerProduits(){
     tb.innerHTML='';
     s.forEach(d=>{const p=d.data();const id=d.id;
       const tr=document.createElement('tr');
-      tr.innerHTML=`<td>${p.nom||'—'}</td><td>${p.categorie||'—'}</td><td style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--or)">${(p.prix||0).toLocaleString()} ${p.devise||'FCFA'}</td><td>${fd(p.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('produits','${id}',chargerProduits)">Supprimer</button></div></td>`;
+      tr.innerHTML=`<td>${p.nom||'—'}</td><td>${p.categorie||'—'}</td><td style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--or)">${(p.prix||0).toLocaleString()} ${p.devise||'FCFA'}</td><td>${fd(p.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('produits','${id}',chargerProduits)">Suppr.</button></div></td>`;
       tb.appendChild(tr);
     });
   }catch(e){}
@@ -693,7 +681,7 @@ window.validerDemande=async function(id,email,nom){
     await envoyerEmail(
       email, nom,
       '✓ Votre adhésion Nexum Alpha est validée !',
-      `Bonjour ${nom},\n\nNous avons le plaisir de vous informer que votre demande d'adhésion au groupe NEXUM ALPHA a été validée avec succès.\n\n━━━━━━━━━━━━━━━━━━━━━━━\nVOS ACCÈS MEMBRES\n━━━━━━━━━━━━━━━━━━━━━━━\n🪪 Identifiant membre : ${membreId}\n📧 Email de connexion : ${email}\n🔑 Mot de passe provisoire : ${motDePasse}\n━━━━━━━━━━━━━━━━━━━━━━━\n\nConnectez-vous dès maintenant à votre espace membre :\n👉 https://bloh96.github.io/nexum-groupe/membre.html\n\nUne fois connecté, vous pourrez :\n• Consulter votre profil et votre ID membre\n• Demander votre badge officiel\n• Accéder aux offres et documents exclusifs\n• Changer votre mot de passe\n\nBienvenue dans la famille NEXUM ALPHA !\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+      `Bonjour ${nom},\n\nNous avons le plaisir de vous informer que votre demande d'adhésion au groupe NEXUM ALPHA a été validée avec succès.\n\nVotre identifiant : ${membreId}\n\nAccédez à votre espace membre avec vos identifiants de connexion.\n\nBienvenue !`
     );
 
     toast(`✓ ${nom} validé(e) — ID : ${membreId} — Email envoyé !`);
@@ -709,7 +697,7 @@ window.refuserDemande=async function(id,email,nom){
     await envoyerEmail(
       email, nom,
       'Votre demande d\'adhésion Nexum Alpha',
-      `Bonjour ${nom},\n\nNous avons bien reçu et examiné votre demande d'adhésion au groupe NEXUM ALPHA.\n\nAprès examen de votre dossier, nous ne sommes pas en mesure de donner une suite favorable à votre candidature pour le moment.\n\nNous vous encourageons à postuler à nouveau ultérieurement. N'hésitez pas à nous contacter pour plus d'informations.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+      `Bonjour ${nom},\n\nNous avons bien reçu et examiné votre demande d'adhésion au groupe NEXUM ALPHA.\n\nAprès examen de votre dossier, nous ne sommes pas en mesure de donner une suite favorable à votre candidature pour le moment.\n\nNous vous remercions de votre intérêt.`
     );
 
     toast(`Demande de ${nom} refusée — Email envoyé.`);
@@ -726,7 +714,7 @@ async function chargerMembres(){
     tb.innerHTML='';
     s.forEach(d=>{const m=d.data();const id=d.id;
       const tr=document.createElement('tr');
-      tr.innerHTML=`<td style="font-family:'Space Mono',monospace;color:var(--or);font-size:.75rem">${m.membreId||'—'}</td><td><strong>${m.nom||'—'}</strong></td><td>${m.email||'—'}</td><td>${m.domaine||'—'}</td><td>${fd(m.traiteLe)}</td><td><div class="tda"><button class="bdel" onclick="suppr('demandes','${id}',chargerMembres)">Supprimer</button></div></td>`;
+      tr.innerHTML=`<td style="font-family:'Space Mono',monospace;color:var(--or);font-size:.75rem">${m.membreId||'—'}</td><td><strong>${m.nom||'—'}</strong></td><td>${m.email||'—'}</td><td>${m.domaine||'—'}</td><td>${fd(m.traiteLe)}</td><td><div class="tda"><button class="bdel" onclick="suppr('demandes','${id}',chargerMembres)">Suppr.</button></div></td>`;
       tb.appendChild(tr);
     });
   }catch(e){}
@@ -768,7 +756,7 @@ window.validerBadge=async function(id,email,nom,uid){
     await envoyerEmail(
       email, nom,
       '🏷️ Votre badge Nexum Alpha est prêt !',
-      `Bonjour ${nom},\n\nExcellente nouvelle ! Votre badge membre officiel NEXUM ALPHA a été validé et est maintenant disponible au téléchargement.\n\n━━━━━━━━━━━━━━━━━━━━━━━\nACCÉDER À MON BADGE\n━━━━━━━━━━━━━━━━━━━━━━━\n👉 https://bloh96.github.io/nexum-groupe/badge.html\n\nConnectez-vous avec vos identifiants membres pour télécharger et imprimer votre badge officiel.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+      `Bonjour ${nom},\n\nExcellente nouvelle ! Votre badge membre officiel NEXUM ALPHA a été validé et est maintenant disponible au téléchargement.\n\nAccédez à votre espace membre pour le récupérer.`
     );
 
     toast(`✓ Badge de ${nom} validé — Email envoyé !`);
@@ -785,7 +773,7 @@ window.refuserBadge=async function(id,email,nom,uid){
     await envoyerEmail(
       email, nom,
       'Votre demande de badge Nexum Alpha',
-      `Bonjour ${nom},\n\nVotre demande de badge membre a été examinée par notre équipe. Elle n'a pas pu être validée en l'état.\n\nVeuillez vous reconnecter à votre espace membre pour soumettre une nouvelle demande en vous assurant que :\n• Votre photo est bien visible et sur fond neutre\n• Tous les champs sont correctement remplis\n\n👉 https://bloh96.github.io/nexum-groupe/badge.html\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+      `Bonjour ${nom},\n\nVotre demande de badge membre a été examinée par notre équipe. Elle n'a pas pu être validée en l'état.\n\nVeuillez vous reconnecter à votre espace membre pour soumettre une nouvelle demande.`
     );
 
     toast(`Badge de ${nom} refusé — Email envoyé.`);
@@ -830,7 +818,7 @@ window.retenirCand=async function(id,email,nom,offre){
     await updateDoc(doc(db,'candidatures',id),{statut:'retenu',traiteLe:serverTimestamp()});
     await envoyerEmail(email,nom,
       `✓ Votre candidature Nexum Alpha a été retenue — ${offre}`,
-      `Bonjour ${nom},\n\nNous avons bien examiné votre candidature pour le poste : ${offre}.\n\nNous avons le plaisir de vous informer que votre profil a retenu notre attention.\n\nUn membre de l'équipe Nexum Alpha vous contactera très prochainement pour la suite du processus de sélection.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+      `Bonjour ${nom},\n\nNous avons bien examiné votre candidature pour le poste : ${offre}.\n\nNous avons le plaisir de vous informer que votre profil a retenu notre attention.\n\nUn membre de l'équipe vous contactera très prochainement.`
     );
     toast(`✓ ${nom} retenu(e) — Email envoyé !`);
     chargerCandidatures();chargerStats();
@@ -843,7 +831,7 @@ window.refuserCand=async function(id,email,nom,offre){
     await updateDoc(doc(db,'candidatures',id),{statut:'refuse',traiteLe:serverTimestamp()});
     await envoyerEmail(email,nom,
       `Votre candidature Nexum Alpha — ${offre}`,
-      `Bonjour ${nom},\n\nNous vous remercions de l'intérêt que vous portez à Nexum Alpha et de votre candidature pour le poste : ${offre}.\n\nAprès examen attentif de votre dossier, nous ne sommes pas en mesure de donner suite à votre candidature pour le moment.\n\nNous conservons votre profil et n'hésiterons pas à vous recontacter si une opportunité correspondant à vos compétences se présente.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+      `Bonjour ${nom},\n\nNous vous remercions de l'intérêt que vous portez à Nexum Alpha et de votre candidature pour le poste : ${offre}.\n\nAprès examen attentif de votre dossier, nous ne sommes pas en mesure de donner une suite à votre candidature pour cette opportunité.`
     );
     toast(`Candidature de ${nom} refusée — Email envoyé.`);
     chargerCandidatures();chargerStats();
@@ -861,7 +849,8 @@ async function chargerCommandes(){
       const sc=c.statut==='livre'?'bs-ok':'bs-att';
       const stLbl=c.statut==='livre'?'LIVRÉ':'EN ATTENTE';
       const tr=document.createElement('tr');
-      tr.innerHTML=`<td>${c.email||'—'}</td><td style="font-size:.82rem">${c.articles?.map(a=>a.nom).join(', ')||'—'}</td><td style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--or)">${(c.total||0).toLocaleString()} FCFA</td><td><span class="badge-st ${sc}">${stLbl}</span></td><td>${fd(c.createdAt)}</td><td><div class="tda">${c.statut!=='livre'?`<button class="bval" onclick="marquerLivre('${id}')">✓ Livré</button>`:''}${c.statut!=='livre'?`<button class="bref" onclick="marquerLivre('${id}')">Contact</button>`:''}  </div></td>`;
+      tr.innerHTML=`<td>${c.email||'—'}</td><td style="font-size:.82rem">${c.articles?.map(a=>a.nom).join(', ')||'—'}</td><td style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--or)">${(c.total||0).toLocaleString()} FCFA</td><td><span class="badge-st ${sc}">${stLbl}</span></td><td>${fd(c.createdAt)}</td><td><div class="tda">${c.statut==='en_attente'?`<button class="bval" onclick="marquerLivre('${id}')">✓ Livré</button>`:''}
+          <button class="bdel" onclick="suppr('commandes','${id}',chargerCommandes)">Suppr.</button></div></td>`;
       tb.appendChild(tr);
     });
   }catch(e){}
@@ -890,55 +879,6 @@ window.pg=function(id){
     const map={dashboard:'Dashboard',infos:'Infos',offres:'Offres',challenges:'Challenge',documents:'Documents',boutique:'Boutique',demandes:'Demandes',membres:'Membres',badges:'badges',candidatures:'Candidatures',commandes:'Commandes'};
     if(s.textContent.trim().toLowerCase().includes((map[id]||id).toLowerCase()))s.classList.add('actif');
   });
-};
-
-// ── CANDIDATURES ──
-async function chargerCandidatures(){
-  const tb=document.getElementById('tb-cand');
-  try{
-    const s=await getDocs(query(collection(db,'candidatures'),orderBy('createdAt','desc')));
-    if(s.empty){tb.innerHTML=`<tr><td colspan="7" class="evide">Aucune candidature reçue.</td></tr>`;return;}
-    tb.innerHTML='';
-    s.forEach(d=>{const c=d.data();const id=d.id;
-      const sc=c.statut==='nouvelle'?'badge-st bs-att':c.statut==='contacte'?'badge-st bs-ok':'badge-st bs-rej';
-      const stLbl=c.statut==='nouvelle'?'NOUVELLE':c.statut==='contacte'?'CONTACTÉ':'ARCHIVÉ';
-      const tr=document.createElement('tr');
-      tr.innerHTML=`
-        <td><strong>${c.nom||'—'}</strong><br><span style="font-size:.75rem;color:var(--gris)">${c.tel||''}</span></td>
-        <td><a href="mailto:${c.email}" style="color:var(--or2);text-decoration:none">${c.email||'—'}</a></td>
-        <td style="font-size:.82rem">${c.offreTitre||'—'}</td>
-        <td>${c.cv?`<a href="${c.cv}" target="_blank" style="color:var(--or);font-family:'Space Mono',monospace;font-size:.6rem">VOIR →</a>`:'—'}</td>
-        <td><span class="${sc}">${stLbl}</span></td>
-        <td>${fd(c.createdAt)}</td>
-        <td><div class="tda">
-          <button class="bval" onclick="voirMotiv('${id}','${(c.nom||'').replace(/'/g,"\\'")}','${(c.motiv||'').replace(/'/g,"\\'").replace(/\n/g,'\\n')}')">Motivation</button>
-          <button class="bval" onclick="marquerContacte('${id}')">✓ Contacté</button>
-          <button class="bref" onclick="archiverCandidature('${id}')">Archiver</button>
-          <button class="bdel" onclick="suppr('candidatures','${id}',chargerCandidatures)">Suppr.</button>
-        </div></td>`;
-      tb.appendChild(tr);
-    });
-  }catch(e){tb.innerHTML=`<tr><td colspan="7" class="evide">Erreur de chargement.</td></tr>`;}
-}
-
-window.voirMotiv=function(id,nom,motiv){
-  document.getElementById('modal-cand-nom').textContent=nom;
-  document.getElementById('modal-cand-motiv').textContent=motiv.replace(/\\n/g,'\n');
-  document.getElementById('modal-motiv').style.display='flex';
-};
-
-window.marquerContacte=async function(id){
-  try{
-    await updateDoc(doc(db,'candidatures',id),{statut:'contacte',contacteLe:serverTimestamp()});
-    toast('✓ Candidat marqué comme contacté.');chargerCandidatures();chargerStats();
-  }catch(e){toast('Erreur.',true);}
-};
-
-window.archiverCandidature=async function(id){
-  try{
-    await updateDoc(doc(db,'candidatures',id),{statut:'archive',archiveLe:serverTimestamp()});
-    toast('Candidature archivée.');chargerCandidatures();chargerStats();
-  }catch(e){toast('Erreur.',true);}
 };
 
 // Exposer les fonctions de chargement pour les callbacks
