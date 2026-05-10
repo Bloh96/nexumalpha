@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NEXUM ALPHA | Administration</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--or:#C9A84C;--or2:#E8C87A;--or3:#9A7A30;--noir:#080808;--n2:#0F0F0F;--n3:#171717;--n4:#202020;--blanc:#F2EDE4;--gris:#7A7670;--vert:#1E5C3A;--vert2:#3A9E6A;--rouge:#8B2020;--rouge2:#E07070;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--noir);color:var(--blanc);font-family:'Cormorant Garamond',serif;}
+
+/* LOGIN */
+#login{position:fixed;inset:0;background:var(--noir);display:flex;align-items:center;justify-content:center;z-index:9000;}
+.lbox{background:var(--n2);border:1px solid rgba(201,168,76,.2);padding:3rem 2.5rem;width:100%;max-width:380px;text-align:center;}
+.llogo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.2em;color:var(--or);margin-bottom:.3rem;}
+.lsub{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--gris);margin-bottom:2rem;}
+.linput{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.1);color:var(--blanc);padding:.88rem 1rem;font-family:'Space Mono',monospace;font-size:1rem;outline:none;text-align:center;letter-spacing:.25em;transition:border-color .3s;margin-bottom:.8rem;}
+.linput:focus{border-color:var(--or);}
+.lbtn{width:100%;background:var(--or);color:var(--noir);border:none;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.2em;cursor:pointer;transition:background .3s;}
+.lbtn:hover{background:var(--or2);}
+.lerr{margin-top:.8rem;font-size:.82rem;color:var(--rouge2);display:none;}
+
+/* APP */
+#app{display:none;}
+.ah{background:var(--n2);border-bottom:1px solid rgba(201,168,76,.12);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.ah-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.15em;color:var(--or);}
+.ah-logo span{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--gris);margin-left:.5rem;}
+.ah-acts{display:flex;gap:.8rem;align-items:center;}
+.abtn{background:none;border:1px solid rgba(255,255,255,.1);color:var(--gris);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.08em;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block;}
+.abtn:hover{border-color:var(--or);color:var(--or);}
+.abtn-d{border-color:rgba(139,32,32,.4);color:var(--rouge2);}
+.abtn-d:hover{background:var(--rouge);border-color:var(--rouge);color:var(--blanc);}
+.al{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 60px);}
+.sb{background:var(--n2);border-right:1px solid rgba(201,168,76,.08);padding:1.5rem 0;}
+.scat{padding:.5rem 1.5rem .3rem;font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.2em;color:var(--gris);text-transform:uppercase;margin-top:1rem;}
+.si{display:flex;align-items:center;gap:.7rem;padding:.7rem 1.5rem;cursor:pointer;font-size:.88rem;color:var(--gris);transition:all .2s;border-left:2px solid transparent;}
+.si:hover{color:var(--blanc);background:rgba(255,255,255,.02);}
+.si.actif{color:var(--or);border-left-color:var(--or);background:rgba(201,168,76,.05);}
+.sbadge{margin-left:auto;background:var(--or);color:var(--noir);font-family:'Space Mono',monospace;font-size:.58rem;padding:.1rem .4rem;border-radius:2px;font-weight:700;}
+.mc{padding:2rem;overflow-y:auto;}
+.pg{display:none;}.pg.actif{display:block;}
+.ptit{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.08em;margin-bottom:.3rem;}
+.psub{font-size:.82rem;color:var(--gris);margin-bottom:2rem;}
+
+/* STATS */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2rem;}
+.sc{background:var(--n2);border:1px solid rgba(201,168,76,.1);padding:1.2rem 1.5rem;border-left:3px solid var(--or);}
+.sc-l{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--gris);text-transform:uppercase;margin-bottom:.4rem;}
+.sc-v{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--or);line-height:1;}
+
+/* FORMS */
+.fc{background:var(--n2);border:1px solid rgba(201,168,76,.1);padding:2rem;margin-bottom:1.5rem;}
+.fc-t{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;color:var(--or);border-bottom:1px solid rgba(201,168,76,.12);padding-bottom:.7rem;margin-bottom:1.5rem;}
+.fg{margin-bottom:1rem;}
+.fg label{display:block;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--or);text-transform:uppercase;margin-bottom:.4rem;}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.07);color:var(--blanc);padding:.7rem .9rem;font-family:'Cormorant Garamond',serif;font-size:.95rem;outline:none;transition:border-color .3s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--or);}
+.fg select option{background:var(--n3);}
+.fg textarea{resize:vertical;min-height:80px;}
+.fg-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+.bsav{background:var(--or);color:var(--noir);border:none;padding:.68rem 1.8rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;cursor:pointer;transition:background .3s;}
+.bsav:hover{background:var(--or2);}
+.bsav:disabled{opacity:.5;cursor:not-allowed;}
+.bval{background:rgba(30,92,58,.2);color:var(--vert2);border:1px solid var(--vert);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .3s;}
+.bval:hover{background:var(--vert);}
+.bref{background:transparent;color:var(--gris);border:1px solid rgba(255,255,255,.1);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .3s;}
+.bref:hover{border-color:var(--rouge2);color:var(--rouge2);}
+.bdel{background:transparent;color:var(--rouge2);border:1px solid var(--rouge2);padding:.38rem .9rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .3s;}
+.bdel:hover{background:var(--rouge);}
+.mf{margin-top:.8rem;padding:.75rem 1rem;font-size:.85rem;display:none;}
+.mf.ok{background:rgba(30,92,58,.2);border:1px solid var(--vert);color:var(--vert2);display:block;}
+.mf.err{background:rgba(139,32,32,.2);border:1px solid var(--rouge);color:var(--rouge2);display:block;}
+
+/* TABLE */
+.tw{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;}
+thead tr{background:var(--n3);}
+thead th{text-align:left;padding:.8rem 1rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--or);text-transform:uppercase;border-bottom:1px solid rgba(201,168,76,.12);}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.03);transition:background .2s;}
+tbody tr:hover{background:var(--n3);}
+tbody td{padding:.82rem 1rem;vertical-align:middle;}
+.tda{display:flex;gap:.4rem;flex-wrap:wrap;}
+.badge-st{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.08em;padding:.18rem .5rem;border-radius:2px;text-transform:uppercase;white-space:nowrap;}
+.bs-att{background:rgba(201,168,76,.1);color:var(--or);border:1px solid rgba(201,168,76,.3);}
+.bs-ok{background:rgba(30,92,58,.15);color:var(--vert2);border:1px solid var(--vert);}
+.bs-rej{background:rgba(139,32,32,.15);color:var(--rouge2);border:1px solid var(--rouge);}
+.bs-ec{background:rgba(30,92,58,.15);color:var(--vert2);border:1px solid var(--vert);}
+.bs-te{background:rgba(201,168,76,.1);color:var(--or);border:1px solid rgba(201,168,76,.3);}
+.bs-av{background:rgba(255,255,255,.04);color:var(--gris);border:1px solid rgba(255,255,255,.1);}
+.evide{text-align:center;padding:2.5rem;color:var(--gris);font-size:.85rem;}
+
+/* BADGE PREVIEW dans admin */
+.badge-mini{width:240px;background:var(--n3);border:1px solid rgba(201,168,76,.2);overflow:hidden;font-size:.75rem;}
+.bm-bar{height:5px;background:linear-gradient(90deg,var(--or3),var(--or),var(--or2));}
+.bm-hd{background:var(--n4);padding:.7rem 1rem;display:flex;justify-content:space-between;align-items:center;}
+.bm-org{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.15em;color:var(--or);}
+.bm-sub{font-family:'Space Mono',monospace;font-size:.38rem;color:var(--gris);}
+.bm-body{padding:1rem;display:flex;gap:.8rem;}
+.bm-photo{width:55px;height:68px;background:var(--n4);border:1px solid rgba(201,168,76,.15);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:var(--gris);font-family:'Space Mono',monospace;}
+.bm-photo img{width:100%;height:100%;object-fit:cover;}
+.bm-info{}
+.bm-name{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.05em;line-height:1.1;}
+.bm-poste{font-size:.65rem;color:var(--or2);margin-bottom:.3rem;}
+.bm-row{font-size:.58rem;color:var(--gris);margin-bottom:.15rem;}
+.bm-id{background:var(--n4);border-top:1px solid rgba(201,168,76,.1);padding:.4rem 1rem;font-family:'Space Mono',monospace;font-size:.55rem;color:var(--or);}
+.bm-ft{padding:.6rem 1rem;display:flex;justify-content:space-between;align-items:flex-end;}
+.bm-sig{font-family:'Space Mono',monospace;font-size:.42rem;color:var(--gris);}
+.bm-bar2{height:3px;background:linear-gradient(90deg,var(--or),var(--or2),var(--or3));}
+
+/* TOAST */
+#toast{position:fixed;bottom:2rem;right:2rem;background:var(--n3);border:1px solid rgba(201,168,76,.3);color:var(--blanc);padding:.9rem 1.5rem;font-size:.85rem;border-left:3px solid var(--or);z-index:9999;transform:translateY(20px);opacity:0;transition:all .4s;pointer-events:none;}
+#toast.show{transform:translateY(0);opacity:1;}
+#toast.err{border-left-color:var(--rouge2);}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:800;display:none;align-items:center;justify-content:center;padding:2rem;}
+.overlay.ouvert{display:flex;}
+.modal{background:var(--n2);border:1px solid rgba(201,168,76,.2);max-width:500px;width:100%;padding:2.5rem;position:relative;max-height:85vh;overflow-y:auto;}
+.mferm{position:absolute;top:1rem;right:1.5rem;background:none;border:none;color:var(--gris);font-size:1.8rem;cursor:pointer;}
+.mferm:hover{color:var(--blanc);}
+
+@media(max-width:768px){.al{grid-template-columns:1fr;}.sb{display:flex;overflow-x:auto;padding:.5rem;border-right:none;border-bottom:1px solid rgba(201,168,76,.08);}.scat{display:none;}.si{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;padding:.6rem 1rem;}.si.actif{border-bottom-color:var(--or);border-left-color:transparent;}.fg-2,.fg-3{grid-template-columns:1fr;}.mc{padding:1.5rem 1rem;}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="lbox">
+    <div class="llogo">NEXUM ALPHA</div>
+    <div class="lsub">Espace Administrateur</div>
+    <input class="linput" type="password" id="l-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')connexion()"/>
+    <button class="lbtn" onclick="connexion()">ACCÉDER</button>
+    <div class="lerr" id="l-err">Mot de passe incorrect.</div>
+    <a href="index.html" style="display:block;margin-top:1.2rem;font-family:'Space Mono',monospace;font-size:.62rem;color:var(--gris);text-decoration:none">← Retour à la vitrine</a>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header class="ah">
+    <div class="ah-logo">NEXUM ALPHA <span>// ADMIN</span></div>
+    <div class="ah-acts">
+      <a href="index.html" class="abtn" target="_blank">VITRINE</a>
+      <a href="membre.html" class="abtn" target="_blank">ESPACE MEMBRE</a>
+      <button class="abtn abtn-d" onclick="deconnexion()">DÉCONNEXION</button>
+    </div>
+  </header>
+  <div class="al">
+    <aside class="sb">
+      <div class="scat">Général</div>
+      <div class="si actif" onclick="pg('dashboard')">📊 Dashboard</div>
+      <div class="si" onclick="pg('infos')">🏢 Infos légales</div>
+      <div class="scat">Contenu</div>
+      <div class="si" onclick="pg('offres')">📋 Offres</div>
+      <div class="si" onclick="pg('challenges')">🏆 Challenges</div>
+      <div class="si" onclick="pg('documents')">📄 Documents</div>
+      <div class="si" onclick="pg('boutique')">🛒 Boutique</div>
+      <div class="scat">Membres</div>
+      <div class="si" onclick="pg('demandes')">👤 Demandes <span class="sbadge" id="badge-dem">0</span></div>
+      <div class="si" onclick="pg('membres')">✅ Membres validés</div>
+      <div class="si" onclick="pg('badges')">🏷️ Demandes badges <span class="sbadge" id="badge-bdg">0</span></div>
+      <div class="si" onclick="pg('candidatures')">📩 Candidatures <span class="sbadge" id="badge-cand">0</span></div>
+      <div class="si" onclick="pg('commandes')">💰 Commandes</div>
+    </aside>
+    <main class="mc">
+
+      <!-- DASHBOARD -->
+      <div class="pg actif" id="pg-dashboard">
+        <h1 class="ptit">DASHBOARD</h1>
+        <p class="psub">Vue d'ensemble — Nexum Alpha</p>
+        <div class="sg">
+          <div class="sc"><div class="sc-l">Offres</div><div class="sc-v" id="ds-off">—</div></div>
+          <div class="sc"><div class="sc-l">Challenges</div><div class="sc-v" id="ds-ch">—</div></div>
+          <div class="sc"><div class="sc-l">Documents</div><div class="sc-v" id="ds-doc">—</div></div>
+          <div class="sc"><div class="sc-l">Produits</div><div class="sc-v" id="ds-prod">—</div></div>
+          <div class="sc"><div class="sc-l">Demandes</div><div class="sc-v" id="ds-dem">—</div></div>
+          <div class="sc"><div class="sc-l">Membres</div><div class="sc-v" id="ds-mem">—</div></div>
+          <div class="sc"><div class="sc-l">Badges att.</div><div class="sc-v" id="ds-bdg">—</div></div>
+          <div class="sc"><div class="sc-l">Candidatures</div><div class="sc-v" id="ds-cand">—</div></div>
+          <div class="sc"><div class="sc-l">Commandes</div><div class="sc-v" id="ds-cmd">—</div></div>
+        </div>
+        <div class="fc">
+          <div class="fc-t">⚡ Actions rapides</div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap">
+            <button class="bsav" onclick="pg('offres')">+ Nouvelle offre</button>
+            <button class="bsav" onclick="pg('challenges')">+ Nouveau challenge</button>
+            <button class="bsav" onclick="pg('boutique')">+ Nouveau produit</button>
+            <button class="bsav" onclick="pg('demandes')">Voir les demandes</button>
+            <button class="bsav" onclick="pg('badges')">Valider les badges</button>
+            <button class="bsav" onclick="pg('candidatures')">Voir les candidatures</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- INFOS LÉGALES -->
+      <div class="pg" id="pg-infos">
+        <h1 class="ptit">INFOS LÉGALES</h1>
+        <p class="psub">Ces informations s'affichent sur la vitrine publique</p>
+        <div class="fc">
+          <div class="fc-t">Identité de l'entreprise</div>
+          <div class="fg-2">
+            <div class="fg"><label>IFU</label><input id="i-ifu" placeholder="Numéro IFU"/></div>
+            <div class="fg"><label>RCCM</label><input id="i-rccm" placeholder="Numéro RCCM"/></div>
+          </div>
+          <div class="fg"><label>Adresse / Contact</label><input id="i-contact" placeholder="Adresse physique complète"/></div>
+          <div class="fg-2">
+            <div class="fg"><label>Email</label><input id="i-email" type="email" placeholder="contact@nexumalpha.bj"/></div>
+            <div class="fg"><label>WhatsApp</label><input id="i-whatsapp" placeholder="+229 XX XX XX XX"/></div>
+          </div>
+          <div class="fg"><label>Lien Facebook</label><input id="i-fb" placeholder="https://facebook.com/..."/></div>
+          <div class="fg"><label>Logo (URL image)</label><input id="i-logo" placeholder="https://..."/></div>
+          <button class="bsav" onclick="sauvegarderInfos()">ENREGISTRER</button>
+          <div class="mf" id="msg-infos"></div>
+        </div>
+      </div>
+
+      <!-- OFFRES -->
+      <div class="pg" id="pg-offres">
+        <h1 class="ptit">OFFRES</h1>
+        <p class="psub">Publiez et gérez les offres visibles sur la vitrine</p>
+        <div class="fc">
+          <div class="fc-t">Nouvelle offre</div>
+          <div class="fg-2">
+            <div class="fg"><label>Titre *</label><input id="o-tit" placeholder="Ex : Consultant junior"/></div>
+            <div class="fg"><label>Type</label>
+              <select id="o-type"><option>CDI</option><option>CDD</option><option>Stage</option><option>Freelance</option><option>Bénévolat</option></select>
+            </div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Secteur</label>
+              <select id="o-sect">
+                <option>Recherche & Réalisation</option><option>Consulting & Analyse</option>
+                <option>Bio Alimentaire</option><option>Formation Informatique</option>
+              </select>
+            </div>
+            <div class="fg"><label>Lieu</label><input id="o-lieu" placeholder="Ex : Cotonou, Bénin"/></div>
+          </div>
+          <div class="fg"><label>Description complète</label><textarea id="o-desc" placeholder="Missions, profil recherché, conditions…"></textarea></div>
+          <button class="bsav" onclick="ajouterOffre()">PUBLIER L'OFFRE</button>
+        </div>
+        <div class="fc">
+          <div class="fc-t">Offres publiées</div>
+          <div class="tw"><table>
+            <thead><tr><th>Titre</th><th>Type</th><th>Secteur</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="tb-offres"><tr><td colspan="5" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- CHALLENGES -->
+      <div class="pg" id="pg-challenges">
+        <h1 class="ptit">CHALLENGES</h1>
+        <p class="psub">Gérez les challenges et publiez les résultats</p>
+        <div class="fc">
+          <div class="fc-t">Nouveau challenge</div>
+          <div class="fg-2">
+            <div class="fg"><label>Titre *</label><input id="c-tit" placeholder="Ex : Challenge Biotech 2026"/></div>
+            <div class="fg"><label>Statut</label>
+              <select id="c-stat"><option>À venir</option><option>En cours</option><option>Terminé</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>Description</label><textarea id="c-desc" placeholder="Présentation du challenge…"></textarea></div>
+          <div class="fg"><label>Résultats / Classement (si terminé)</label><textarea id="c-res" placeholder="Ex : 1er : Équipe Alpha…"></textarea></div>
+          <button class="bsav" onclick="ajouterChallenge()">PUBLIER LE CHALLENGE</button>
+        </div>
+        <div class="fc">
+          <div class="fc-t">Challenges publiés</div>
+          <div class="tw"><table>
+            <thead><tr><th>Titre</th><th>Statut</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="tb-challenges"><tr><td colspan="4" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- DOCUMENTS -->
+      <div class="pg" id="pg-documents">
+        <h1 class="ptit">DOCUMENTS</h1>
+        <p class="psub">Publiez des ressources téléchargeables</p>
+        <div class="fc">
+          <div class="fc-t">Nouveau document</div>
+          <div class="fg-2">
+            <div class="fg"><label>Nom *</label><input id="d-nom" placeholder="Ex : Rapport annuel 2025"/></div>
+            <div class="fg"><label>Type</label>
+              <select id="d-type"><option>PDF</option><option>Word</option><option>Excel</option><option>Image</option><option>Autre</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>URL du fichier *</label><input id="d-url" placeholder="https://drive.google.com/..."/></div>
+          <div class="fg"><label>Description</label><input id="d-desc" placeholder="Courte description optionnelle"/></div>
+          <button class="bsav" onclick="ajouterDocument()">PUBLIER LE DOCUMENT</button>
+        </div>
+        <div class="fc">
+          <div class="fc-t">Documents publiés</div>
+          <div class="tw"><table>
+            <thead><tr><th>Nom</th><th>Type</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="tb-docs"><tr><td colspan="4" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- BOUTIQUE -->
+      <div class="pg" id="pg-boutique">
+        <h1 class="ptit">BOUTIQUE</h1>
+        <p class="psub">Gérez les produits digitaux et formations</p>
+        <div class="fc">
+          <div class="fc-t">Nouveau produit / formation</div>
+          <div class="fg-2">
+            <div class="fg"><label>Nom *</label><input id="p-nom" placeholder="Ex : Formation Data Analysis"/></div>
+            <div class="fg"><label>Catégorie</label>
+              <select id="p-cat"><option>Formation</option><option>Produit digital</option><option>Template</option><option>Guide / Ebook</option><option>Autre</option></select>
+            </div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Prix *</label><input type="number" id="p-prix" placeholder="Ex : 25000"/></div>
+            <div class="fg"><label>Devise</label>
+              <select id="p-dev"><option>FCFA</option><option>EUR</option><option>USD</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>Description</label><textarea id="p-desc" placeholder="Contenu, objectifs, niveau requis…"></textarea></div>
+          <div class="fg"><label>URL du produit / lien d'accès</label><input id="p-url" placeholder="https://..."/></div>
+          <button class="bsav" onclick="ajouterProduit()">PUBLIER LE PRODUIT</button>
+        </div>
+        <div class="fc">
+          <div class="fc-t">Produits publiés</div>
+          <div class="tw"><table>
+            <thead><tr><th>Nom</th><th>Catégorie</th><th>Prix</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="tb-produits"><tr><td colspan="5" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- DEMANDES ADHÉSION -->
+      <div class="pg" id="pg-demandes">
+        <h1 class="ptit">DEMANDES D'ADHÉSION</h1>
+        <p class="psub">Validez ou refusez les demandes. Un email automatique sera envoyé au candidat.</p>
+        <div class="fc" style="padding:0">
+          <div class="tw"><table>
+            <thead><tr><th>Nom</th><th>Email</th><th>Poste</th><th>Domaine</th><th>Statut</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="tb-demandes"><tr><td colspan="7" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- MEMBRES VALIDÉS -->
+      <div class="pg" id="pg-membres">
+        <h1 class="ptit">MEMBRES VALIDÉS</h1>
+        <p class="psub">Liste des comptes approuvés avec leur ID membre</p>
+        <div class="fc" style="padding:0">
+          <div class="tw"><table>
+            <thead><tr><th>ID Membre</th><th>Nom</th><th>Email</th><th>Domaine</th><th>Validé le</th><th>Actions</th></tr></thead>
+            <tbody id="tb-membres"><tr><td colspan="6" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- DEMANDES BADGES -->
+      <div class="pg" id="pg-badges">
+        <h1 class="ptit">DEMANDES DE BADGE</h1>
+        <p class="psub">Validez les badges membres. Un email de notification sera envoyé.</p>
+        <div class="fc" style="padding:0">
+          <div class="tw"><table>
+            <thead><tr><th>Photo</th><th>Nom</th><th>ID Membre</th><th>Poste</th><th>Secteur</th><th>Statut</th><th>Actions</th></tr></thead>
+            <tbody id="tb-badges"><tr><td colspan="7" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- CANDIDATURES -->
+      <div class="pg" id="pg-candidatures">
+        <h1 class="ptit">CANDIDATURES</h1>
+        <p class="psub">Candidatures reçues via les offres publiées sur la vitrine</p>
+        <div class="fc" style="padding:0">
+          <div class="tw"><table>
+            <thead><tr><th>Candidat</th><th>Email</th><th>Offre visée</th><th>Téléphone</th><th>CV</th><th>Statut</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="tb-cand"><tr><td colspan="8" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- COMMANDES -->
+      <div class="pg" id="pg-commandes">
+        <h1 class="ptit">COMMANDES</h1>
+        <p class="psub">Gérez les commandes de la boutique</p>
+        <div class="fc" style="padding:0">
+          <div class="tw"><table>
+            <thead><tr><th>Email</th><th>Articles</th><th>Total</th><th>Statut</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="tb-commandes"><tr><td colspan="6" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- CANDIDATURES -->
+      <div class="pg" id="pg-candidatures">
+        <h1 class="ptit">CANDIDATURES</h1>
+        <p class="psub">Candidatures reçues depuis la page Offres. Contactez ou archivez chaque candidat.</p>
+        <div class="fc" style="padding:0">
+          <div class="tw"><table>
+            <thead><tr><th>Candidat</th><th>Email</th><th>Offre visée</th><th>CV</th><th>Statut</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="tb-cand"><tr><td colspan="7" class="evide">Chargement…</td></tr></tbody>
+          </table></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- MODAL MOTIVATION -->
+<div style="position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:800;display:none;align-items:center;justify-content:center;padding:2rem" id="modal-motiv">
+  <div style="background:var(--n2);border:1px solid rgba(201,168,76,.2);max-width:540px;width:100%;padding:2.5rem;position:relative;max-height:85vh;overflow-y:auto">
+    <button onclick="document.getElementById('modal-motiv').style.display='none'" style="position:absolute;top:1rem;right:1.5rem;background:none;border:none;color:var(--gris);font-size:1.8rem;cursor:pointer">×</button>
+    <div style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--or);text-transform:uppercase;margin-bottom:.5rem">Motivation du candidat</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:1.2rem" id="modal-cand-nom">—</div>
+    <div style="font-size:.92rem;color:var(--gris);line-height:1.8;white-space:pre-wrap" id="modal-cand-motiv">—</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,collection,doc,getDoc,setDoc,addDoc,getDocs,deleteDoc,updateDoc,serverTimestamp,query,orderBy,where,getCountFromServer}
+  from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import{getAuth,createUserWithEmailAndPassword,sendPasswordResetEmail}
+  from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+// 🔑 Hash SHA-256 du mot de passe admin (ne pas mettre le mot de passe en clair ici)
+// Pour changer le mot de passe : générez un nouveau hash SHA-256 sur https://emn178.github.io/online-tools/sha256.html et remplacez la valeur ci-dessous
+const HASH_ADMIN = "7ad43c3911e2c53ba4d727a623de57386b272074a963f3957c15c4969753272c"; // Remplacez ce hash pour changer le mot de passe
+
+async function verifierMDP(pwd){
+  const enc = new TextEncoder().encode(pwd);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ── EMAILJS CONFIG ──
+const EJS_SERVICE  = "service_1p2d0nu";
+const EJS_TEMPLATE = "template_zref88g";
+const EJS_KEY      = "HuMRSJgyh3i0eu_sY";
+emailjs.init(EJS_KEY);
+
+async function envoyerEmail(to_email, to_name, sujet, message){
+  try{
+    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+      to_email, to_name, sujet, message,
+      from_name: "Joseph Dèwanou BLOH — NEXUM ALPHA",
+      reply_to: "nexumalpha@gmail.com"
+    });
+    console.log("✓ Email envoyé à", to_email);
+  }catch(e){ console.error("EmailJS erreur:", e); }
+}
+
+const app=initializeApp({apiKey:"AIzaSyAJmFMpJsMsQCrYM4Xw5yVScNfDzW6tncI",authDomain:"nexumalpha-27597.firebaseapp.com",projectId:"nexumalpha-27597",storageBucket:"nexumalpha-27597.firebasestorage.app",messagingSenderId:"393395005974",appId:"1:393395005974:web:b71d39b636dad8e153e337"});
+const db=getFirestore(app);
+const auth=getAuth(app);
+
+// ── CONNEXION ──
+window.connexion=async function(){
+  const pwd=document.getElementById('l-pwd').value;
+  const err=document.getElementById('l-err');
+  const hash=await verifierMDP(pwd);
+  if(hash===HASH_ADMIN){
+    sessionStorage.setItem('nx_admin','1');
+    document.getElementById('login').style.display='none';
+    document.getElementById('app').style.display='block';
+    initAdmin();
+  }else{err.style.display='block';setTimeout(()=>err.style.display='none',3000);}
+};
+window.deconnexion=function(){sessionStorage.removeItem('nx_admin');location.reload();};
+if(sessionStorage.getItem('nx_admin')==='1'){
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='block';
+  initAdmin();
+}
+
+// ── TOAST ──
+function toast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className=err?'err show':'show';
+  setTimeout(()=>t.className='',3500);
+}
+
+// ── DATE FORMAT ──
+function fd(ts){if(!ts)return'—';const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleDateString('fr-FR');}
+
+// ── GENERER ID MEMBRE ──
+function genId(){return'NXM-'+new Date().getFullYear()+'-'+String(Math.floor(Math.random()*9000)+1000);}
+
+// ── INIT ──
+async function initAdmin(){
+  await chargerStats();
+  chargerInfosAdmin();
+  chargerOffres();chargerChallenges();chargerDocs();chargerProduits();
+  chargerDemandes();chargerMembres();chargerBadges();chargerCandidatures();chargerCommandes();
+}
+
+// ── STATS ──
+async function chargerStats(){
+  try{
+    const[off,ch,doc2,prod,dem,mem,bdg,cand,cmd]=await Promise.all([
+      getCountFromServer(collection(db,'offres')),
+      getCountFromServer(collection(db,'challenges')),
+      getCountFromServer(collection(db,'documents')),
+      getCountFromServer(collection(db,'produits')),
+      getCountFromServer(query(collection(db,'demandes'),where('statut','==','en_attente'))),
+      getCountFromServer(query(collection(db,'demandes'),where('statut','==','approuve'))),
+      getCountFromServer(query(collection(db,'demandes_badges'),where('statut','==','en_attente'))),
+      getCountFromServer(query(collection(db,'candidatures'),where('statut','==','nouvelle'))),
+      getCountFromServer(collection(db,'commandes'))
+    ]);
+    document.getElementById('ds-off').textContent=off.data().count;
+    document.getElementById('ds-ch').textContent=ch.data().count;
+    document.getElementById('ds-doc').textContent=doc2.data().count;
+    document.getElementById('ds-prod').textContent=prod.data().count;
+    document.getElementById('ds-dem').textContent=dem.data().count;
+    document.getElementById('ds-mem').textContent=mem.data().count;
+    document.getElementById('ds-bdg').textContent=bdg.data().count;
+    document.getElementById('ds-cand').textContent=cand.data().count;
+    document.getElementById('ds-cmd').textContent=cmd.data().count;
+    document.getElementById('badge-dem').textContent=dem.data().count;
+    document.getElementById('badge-bdg').textContent=bdg.data().count;
+    document.getElementById('badge-cand').textContent=cand.data().count;
+  }catch(e){}
+}
+
+// ── INFOS ──
+async function chargerInfosAdmin(){
+  try{
+    const s=await getDoc(doc(db,'config','infos'));
+    if(!s.exists())return;const d=s.data();
+    ['ifu','rccm','contact','email','whatsapp'].forEach(k=>{const el=document.getElementById('i-'+k);if(el)el.value=d[k]||'';});
+    if(document.getElementById('i-fb'))document.getElementById('i-fb').value=d.facebook||'';
+    if(document.getElementById('i-logo'))document.getElementById('i-logo').value=d.logo||'';
+  }catch(e){}
+}
+window.sauvegarderInfos=async function(){
+  const msg=document.getElementById('msg-infos');
+  try{
+    await setDoc(doc(db,'config','infos'),{
+      ifu:document.getElementById('i-ifu').value.trim(),
+      rccm:document.getElementById('i-rccm').value.trim(),
+      contact:document.getElementById('i-contact').value.trim(),
+      email:document.getElementById('i-email').value.trim(),
+      whatsapp:document.getElementById('i-whatsapp').value.trim(),
+      facebook:document.getElementById('i-fb').value.trim(),
+      logo:document.getElementById('i-logo').value.trim(),
+      updatedAt:serverTimestamp()
+    });
+    msg.className='mf ok';msg.textContent='✓ Informations enregistrées !';
+    setTimeout(()=>msg.style.display='none',3000);
+  }catch(e){msg.className='mf err';msg.textContent='Erreur lors de l\'enregistrement.';}
+};
+
+// ── OFFRES ──
+async function chargerOffres(){
+  const tb=document.getElementById('tb-offres');
+  try{
+    const s=await getDocs(query(collection(db,'offres'),orderBy('createdAt','desc')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="5" class="evide">Aucune offre publiée.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const o=d.data();const id=d.id;
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${o.titre||'—'}</td><td><span class="badge-st bs-att">${o.type||'—'}</span></td><td>${o.secteur||'—'}</td><td>${fd(o.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('offres','${id}',chargerOffres)">Supprimer</button></div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){tb.innerHTML=`<tr><td colspan="5" class="evide">Erreur.</td></tr>`;}
+}
+window.ajouterOffre=async function(){
+  const tit=document.getElementById('o-tit').value.trim();
+  if(!tit){toast('Titre obligatoire.',true);return;}
+  try{
+    await addDoc(collection(db,'offres'),{titre:tit,type:document.getElementById('o-type').value,secteur:document.getElementById('o-sect').value,lieu:document.getElementById('o-lieu').value.trim(),description:document.getElementById('o-desc').value.trim(),createdAt:serverTimestamp()});
+    toast('✓ Offre publiée !');['o-tit','o-lieu','o-desc'].forEach(id=>document.getElementById(id).value='');
+    chargerOffres();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+// ── CHALLENGES ──
+async function chargerChallenges(){
+  const tb=document.getElementById('tb-challenges');
+  try{
+    const s=await getDocs(query(collection(db,'challenges'),orderBy('createdAt','desc')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="4" class="evide">Aucun challenge.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const c=d.data();const id=d.id;
+      const sc=c.statut==='En cours'?'bs-ec':c.statut==='Terminé'?'bs-te':'bs-av';
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${c.titre||'—'}</td><td><span class="badge-st ${sc}">${c.statut||'—'}</span></td><td>${fd(c.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('challenges','${id}',chargerChallenges)">Supprimer</button></div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){}
+}
+window.ajouterChallenge=async function(){
+  const tit=document.getElementById('c-tit').value.trim();
+  if(!tit){toast('Titre obligatoire.',true);return;}
+  try{
+    await addDoc(collection(db,'challenges'),{titre:tit,statut:document.getElementById('c-stat').value,description:document.getElementById('c-desc').value.trim(),resultats:document.getElementById('c-res').value.trim(),createdAt:serverTimestamp()});
+    toast('✓ Challenge publié !');['c-tit','c-desc','c-res'].forEach(id=>document.getElementById(id).value='');
+    chargerChallenges();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+// ── DOCUMENTS ──
+async function chargerDocs(){
+  const tb=document.getElementById('tb-docs');
+  try{
+    const s=await getDocs(query(collection(db,'documents'),orderBy('createdAt','desc')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="4" class="evide">Aucun document.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const dc=d.data();const id=d.id;
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td><a href="${dc.url}" target="_blank" style="color:var(--or2)">${dc.nom||'—'}</a></td><td><span class="badge-st bs-att">${dc.type||'—'}</span></td><td>${fd(dc.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('documents','${id}',chargerDocs)">Supprimer</button></div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){}
+}
+window.ajouterDocument=async function(){
+  const nom=document.getElementById('d-nom').value.trim();
+  const url=document.getElementById('d-url').value.trim();
+  if(!nom||!url){toast('Nom et URL obligatoires.',true);return;}
+  try{
+    await addDoc(collection(db,'documents'),{nom,url,type:document.getElementById('d-type').value,description:document.getElementById('d-desc').value.trim(),createdAt:serverTimestamp()});
+    toast('✓ Document publié !');['d-nom','d-url','d-desc'].forEach(id=>document.getElementById(id).value='');
+    chargerDocs();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+// ── BOUTIQUE ──
+async function chargerProduits(){
+  const tb=document.getElementById('tb-produits');
+  try{
+    const s=await getDocs(query(collection(db,'produits'),orderBy('createdAt','desc')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="5" class="evide">Aucun produit.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const p=d.data();const id=d.id;
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${p.nom||'—'}</td><td>${p.categorie||'—'}</td><td style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--or)">${(p.prix||0).toLocaleString()} ${p.devise||'FCFA'}</td><td>${fd(p.createdAt)}</td><td><div class="tda"><button class="bdel" onclick="suppr('produits','${id}',chargerProduits)">Supprimer</button></div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){}
+}
+window.ajouterProduit=async function(){
+  const nom=document.getElementById('p-nom').value.trim();
+  const prix=parseFloat(document.getElementById('p-prix').value)||0;
+  if(!nom||!prix){toast('Nom et prix obligatoires.',true);return;}
+  try{
+    await addDoc(collection(db,'produits'),{nom,categorie:document.getElementById('p-cat').value,prix,devise:document.getElementById('p-dev').value,description:document.getElementById('p-desc').value.trim(),url:document.getElementById('p-url').value.trim(),createdAt:serverTimestamp()});
+    toast('✓ Produit publié !');['p-nom','p-prix','p-desc','p-url'].forEach(id=>document.getElementById(id).value='');
+    chargerProduits();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+// ── DEMANDES ADHÉSION ──
+async function chargerDemandes(){
+  const tb=document.getElementById('tb-demandes');
+  try{
+    const s=await getDocs(query(collection(db,'demandes'),where('statut','==','en_attente')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="7" class="evide">Aucune demande en attente.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const dem=d.data();const id=d.id;
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td><strong>${dem.nom||'—'}</strong></td><td>${dem.email||'—'}</td><td>${dem.poste||'—'}</td><td>${dem.domaine||'—'}</td><td><span class="badge-st bs-att">EN ATTENTE</span></td><td>${fd(dem.createdAt)}</td><td><div class="tda"><button class="bval" onclick="validerDemande('${id}','${(dem.email||'').replace(/'/g,"\\'")}','${(dem.nom||'').replace(/'/g,"\\'")}')">✓ Valider</button><button class="bref" onclick="refuserDemande('${id}','${(dem.email||'').replace(/'/g,"\\'")}','${(dem.nom||'').replace(/'/g,"\\'")}')">✕ Refuser</button></div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){tb.innerHTML=`<tr><td colspan="7" class="evide">Erreur.</td></tr>`;}
+}
+
+window.validerDemande=async function(id,email,nom){
+  if(!confirm(`Valider la demande de ${nom} ?`))return;
+  try{
+    const membreId=genId();
+    const motDePasse=Math.random().toString(36).slice(-8)+'N!';
+
+    // 1. Mettre à jour la demande
+    await updateDoc(doc(db,'demandes',id),{statut:'approuve',membreId,traiteLe:serverTimestamp()});
+
+    // 2. Créer le compte Firebase Auth
+    let uid=null;
+    try{
+      const cred=await createUserWithEmailAndPassword(auth,email,motDePasse);
+      uid=cred.user.uid;
+    }catch(e){
+      try{await sendPasswordResetEmail(auth,email);}catch(e2){}
+    }
+
+    // 3. Créer le document membre dans Firestore
+    if(uid){
+      const snapDem=await getDoc(doc(db,'demandes',id));
+      const demData=snapDem.data();
+      await setDoc(doc(db,'membres',uid),{
+        ...demData,uid,membreId,
+        badgeStatut:'non_demande',
+        createdAt:serverTimestamp()
+      });
+    }
+
+    // 4. Envoyer email via EmailJS
+    await envoyerEmail(
+      email, nom,
+      '✓ Votre adhésion Nexum Alpha est validée !',
+      `Bonjour ${nom},\n\nNous avons le plaisir de vous informer que votre demande d'adhésion au groupe NEXUM ALPHA a été validée avec succès.\n\n━━━━━━━━━━━━━━━━━━━━━━━\nVOS ACCÈS MEMBRES\n━━━━━━━━━━━━━━━━━━━━━━━\n🪪 Identifiant membre : ${membreId}\n📧 Email de connexion : ${email}\n🔑 Mot de passe provisoire : ${motDePasse}\n━━━━━━━━━━━━━━━━━━━━━━━\n\nConnectez-vous dès maintenant à votre espace membre :\n👉 https://bloh96.github.io/nexum-groupe/membre.html\n\nUne fois connecté, vous pourrez :\n• Consulter votre profil et votre ID membre\n• Demander votre badge officiel\n• Accéder aux offres et documents exclusifs\n• Changer votre mot de passe\n\nBienvenue dans la famille NEXUM ALPHA !\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
+
+    toast(`✓ ${nom} validé(e) — ID : ${membreId} — Email envoyé !`);
+    chargerDemandes();chargerMembres();chargerStats();
+  }catch(e){console.error(e);toast('Erreur lors de la validation.',true);}
+};
+
+window.refuserDemande=async function(id,email,nom){
+  if(!confirm(`Refuser la demande de ${nom} ?`))return;
+  try{
+    await updateDoc(doc(db,'demandes',id),{statut:'rejete',traiteLe:serverTimestamp()});
+
+    await envoyerEmail(
+      email, nom,
+      'Votre demande d\'adhésion Nexum Alpha',
+      `Bonjour ${nom},\n\nNous avons bien reçu et examiné votre demande d'adhésion au groupe NEXUM ALPHA.\n\nAprès examen de votre dossier, nous ne sommes pas en mesure de donner une suite favorable à votre candidature pour le moment.\n\nNous vous encourageons à postuler à nouveau ultérieurement. N'hésitez pas à nous contacter pour plus d'informations.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
+
+    toast(`Demande de ${nom} refusée — Email envoyé.`);
+    chargerDemandes();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+// ── MEMBRES ──
+async function chargerMembres(){
+  const tb=document.getElementById('tb-membres');
+  try{
+    const s=await getDocs(query(collection(db,'demandes'),where('statut','==','approuve')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="6" class="evide">Aucun membre validé.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const m=d.data();const id=d.id;
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td style="font-family:'Space Mono',monospace;color:var(--or);font-size:.75rem">${m.membreId||'—'}</td><td><strong>${m.nom||'—'}</strong></td><td>${m.email||'—'}</td><td>${m.domaine||'—'}</td><td>${fd(m.traiteLe)}</td><td><div class="tda"><button class="bdel" onclick="suppr('demandes','${id}',chargerMembres)">Supprimer</button></div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){}
+}
+
+// ── BADGES ──
+async function chargerBadges(){
+  const tb=document.getElementById('tb-badges');
+  try{
+    const s=await getDocs(query(collection(db,'demandes_badges'),orderBy('createdAt','desc')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="7" class="evide">Aucune demande de badge.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const b=d.data();const id=d.id;
+      const sc=b.statut==='approuve'?'bs-ok':b.statut==='rejete'?'bs-rej':'bs-att';
+      const stLbl=b.statut==='approuve'?'VALIDÉ':b.statut==='rejete'?'REFUSÉ':'EN ATTENTE';
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td>${b.photoBase64?`<img src="${b.photoBase64}" style="width:40px;height:50px;object-fit:cover;border:1px solid rgba(201,168,76,.2)"/>`:'—'}</td>
+        <td><strong>${b.nom_complet||b.nom||'—'}</strong></td>
+        <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:var(--or)">${b.membreId||'—'}</td>
+        <td>${b.poste||'—'}</td>
+        <td>${b.secteur||'—'}</td>
+        <td><span class="badge-st ${sc}">${stLbl}</span></td>
+        <td><div class="tda">
+          ${b.statut==='en_attente'?`<button class="bval" onclick="validerBadge('${id}','${(b.email||'').replace(/'/g,"\\'")}','${(b.nom_complet||b.nom||'').replace(/'/g,"\\'")}','${b.uid||''}')">✓ Valider</button><button class="bref" onclick="refuserBadge('${id}','${(b.email||'').replace(/'/g,"\\'")}','${(b.nom_complet||b.nom||'').replace(/'/g,"\\'")}','${b.uid||''}')">✕ Refuser</button>`:''}
+          <button class="bdel" onclick="suppr('demandes_badges','${id}',chargerBadges)">Supprimer</button>
+        </div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){tb.innerHTML=`<tr><td colspan="7" class="evide">Erreur.</td></tr>`;}
+}
+
+window.validerBadge=async function(id,email,nom,uid){
+  if(!confirm(`Valider le badge de ${nom} ?`))return;
+  try{
+    await updateDoc(doc(db,'demandes_badges',id),{statut:'approuve',valideLe:serverTimestamp()});
+    if(uid){try{await updateDoc(doc(db,'membres',uid),{badgeStatut:'approuve'});}catch(e){}}
+
+    await envoyerEmail(
+      email, nom,
+      '🏷️ Votre badge Nexum Alpha est prêt !',
+      `Bonjour ${nom},\n\nExcellente nouvelle ! Votre badge membre officiel NEXUM ALPHA a été validé et est maintenant disponible au téléchargement.\n\n━━━━━━━━━━━━━━━━━━━━━━━\nACCÉDER À MON BADGE\n━━━━━━━━━━━━━━━━━━━━━━━\n👉 https://bloh96.github.io/nexum-groupe/badge.html\n\nConnectez-vous avec vos identifiants membres pour télécharger et imprimer votre badge officiel.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
+
+    toast(`✓ Badge de ${nom} validé — Email envoyé !`);
+    chargerBadges();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+window.refuserBadge=async function(id,email,nom,uid){
+  if(!confirm(`Refuser le badge de ${nom} ?`))return;
+  try{
+    await updateDoc(doc(db,'demandes_badges',id),{statut:'rejete',traiteLe:serverTimestamp()});
+    if(uid){try{await updateDoc(doc(db,'membres',uid),{badgeStatut:'non_demande'});}catch(e){}}
+
+    await envoyerEmail(
+      email, nom,
+      'Votre demande de badge Nexum Alpha',
+      `Bonjour ${nom},\n\nVotre demande de badge membre a été examinée par notre équipe. Elle n'a pas pu être validée en l'état.\n\nVeuillez vous reconnecter à votre espace membre pour soumettre une nouvelle demande en vous assurant que :\n• Votre photo est bien visible et sur fond neutre\n• Tous les champs sont correctement remplis\n\n👉 https://bloh96.github.io/nexum-groupe/badge.html\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
+
+    toast(`Badge de ${nom} refusé — Email envoyé.`);
+    chargerBadges();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+// ── CANDIDATURES ──
+async function chargerCandidatures(){
+  const tb=document.getElementById('tb-cand');
+  try{
+    const s=await getDocs(query(collection(db,'candidatures'),orderBy('createdAt','desc')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="8" class="evide">Aucune candidature reçue.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const c=d.data();const id=d.id;
+      const sc=c.statut==='nouvelle'?'bs-att':c.statut==='retenu'?'bs-ok':'bs-rej';
+      const stLbl=c.statut==='nouvelle'?'NOUVELLE':c.statut==='retenu'?'RETENU':'REFUSÉ';
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td><strong>${c.nom||'—'}</strong></td>
+        <td><a href="mailto:${c.email}" style="color:var(--or2);text-decoration:none">${c.email||'—'}</a></td>
+        <td>${c.offreTitre||'—'}</td>
+        <td>${c.tel||'—'}</td>
+        <td>${c.cv?`<a href="${c.cv}" target="_blank" style="color:var(--or2);font-family:'Space Mono',monospace;font-size:.65rem">VOIR →</a>`:'—'}</td>
+        <td><span class="badge-st ${sc}">${stLbl}</span></td>
+        <td>${fd(c.createdAt)}</td>
+        <td><div class="tda">
+          ${c.statut==='nouvelle'?`
+            <button class="bval" onclick="retenirCand('${id}','${(c.email||'').replace(/'/g,"\\'")}','${(c.nom||'').replace(/'/g,"\\'")}','${(c.offreTitre||'').replace(/'/g,"\\'")}')">✓ Retenir</button>
+            <button class="bref" onclick="refuserCand('${id}','${(c.email||'').replace(/'/g,"\\'")}','${(c.nom||'').replace(/'/g,"\\'")}','${(c.offreTitre||'').replace(/'/g,"\\'")}')">✕ Refuser</button>
+          `:''}
+          <button class="bdel" onclick="suppr('candidatures','${id}',chargerCandidatures)">Suppr.</button>
+        </div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){tb.innerHTML=`<tr><td colspan="8" class="evide">Erreur de chargement.</td></tr>`;}
+}
+
+window.retenirCand=async function(id,email,nom,offre){
+  if(!confirm(`Retenir la candidature de ${nom} ?`))return;
+  try{
+    await updateDoc(doc(db,'candidatures',id),{statut:'retenu',traiteLe:serverTimestamp()});
+    await envoyerEmail(email,nom,
+      `✓ Votre candidature Nexum Alpha a été retenue — ${offre}`,
+      `Bonjour ${nom},\n\nNous avons bien examiné votre candidature pour le poste : ${offre}.\n\nNous avons le plaisir de vous informer que votre profil a retenu notre attention.\n\nUn membre de l'équipe Nexum Alpha vous contactera très prochainement pour la suite du processus de sélection.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
+    toast(`✓ ${nom} retenu(e) — Email envoyé !`);
+    chargerCandidatures();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+window.refuserCand=async function(id,email,nom,offre){
+  if(!confirm(`Refuser la candidature de ${nom} ?`))return;
+  try{
+    await updateDoc(doc(db,'candidatures',id),{statut:'refuse',traiteLe:serverTimestamp()});
+    await envoyerEmail(email,nom,
+      `Votre candidature Nexum Alpha — ${offre}`,
+      `Bonjour ${nom},\n\nNous vous remercions de l'intérêt que vous portez à Nexum Alpha et de votre candidature pour le poste : ${offre}.\n\nAprès examen attentif de votre dossier, nous ne sommes pas en mesure de donner suite à votre candidature pour le moment.\n\nNous conservons votre profil et n'hésiterons pas à vous recontacter si une opportunité correspondant à vos compétences se présente.\n\nCordialement,\nJoseph Dèwanou BLOH\nDirecteur des Opérations · Analyste & Économiste Financier\nNEXUM ALPHA — Hub d'Expertise · Afrique de l'Ouest`
+    );
+    toast(`Candidature de ${nom} refusée — Email envoyé.`);
+    chargerCandidatures();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+// ── COMMANDES ──
+async function chargerCommandes(){
+  const tb=document.getElementById('tb-commandes');
+  try{
+    const s=await getDocs(query(collection(db,'commandes'),orderBy('createdAt','desc')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="6" class="evide">Aucune commande.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const c=d.data();const id=d.id;
+      const sc=c.statut==='livre'?'bs-ok':'bs-att';
+      const stLbl=c.statut==='livre'?'LIVRÉ':'EN ATTENTE';
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${c.email||'—'}</td><td style="font-size:.82rem">${c.articles?.map(a=>a.nom).join(', ')||'—'}</td><td style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--or)">${(c.total||0).toLocaleString()} FCFA</td><td><span class="badge-st ${sc}">${stLbl}</span></td><td>${fd(c.createdAt)}</td><td><div class="tda">${c.statut!=='livre'?`<button class="bval" onclick="marquerLivre('${id}')">✓ Livré</button>`:''}${c.statut!=='livre'?`<button class="bref" onclick="marquerLivre('${id}')">Contact</button>`:''}  </div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){}
+}
+
+window.marquerLivre=async function(id){
+  try{
+    await updateDoc(doc(db,'commandes',id),{statut:'livre',livreLe:serverTimestamp()});
+    toast('✓ Commande marquée comme livrée.');chargerCommandes();
+  }catch(e){toast('Erreur.',true);}
+};
+
+// ── SUPPRESSION ──
+window.suppr=async function(col,id,cb){
+  if(!confirm('Confirmer la suppression ?'))return;
+  try{await deleteDoc(doc(db,col,id));toast('✓ Supprimé.');cb();chargerStats();}
+  catch(e){toast('Erreur.',true);}
+};
+
+// ── NAVIGATION ──
+window.pg=function(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('actif'));
+  document.querySelectorAll('.si').forEach(s=>s.classList.remove('actif'));
+  document.getElementById('pg-'+id).classList.add('actif');
+  document.querySelectorAll('.si').forEach(s=>{
+    const map={dashboard:'Dashboard',infos:'Infos',offres:'Offres',challenges:'Challenge',documents:'Documents',boutique:'Boutique',demandes:'Demandes',membres:'Membres',badges:'badges',candidatures:'Candidatures',commandes:'Commandes'};
+    if(s.textContent.trim().toLowerCase().includes((map[id]||id).toLowerCase()))s.classList.add('actif');
+  });
+};
+
+// ── CANDIDATURES ──
+async function chargerCandidatures(){
+  const tb=document.getElementById('tb-cand');
+  try{
+    const s=await getDocs(query(collection(db,'candidatures'),orderBy('createdAt','desc')));
+    if(s.empty){tb.innerHTML=`<tr><td colspan="7" class="evide">Aucune candidature reçue.</td></tr>`;return;}
+    tb.innerHTML='';
+    s.forEach(d=>{const c=d.data();const id=d.id;
+      const sc=c.statut==='nouvelle'?'badge-st bs-att':c.statut==='contacte'?'badge-st bs-ok':'badge-st bs-rej';
+      const stLbl=c.statut==='nouvelle'?'NOUVELLE':c.statut==='contacte'?'CONTACTÉ':'ARCHIVÉ';
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td><strong>${c.nom||'—'}</strong><br><span style="font-size:.75rem;color:var(--gris)">${c.tel||''}</span></td>
+        <td><a href="mailto:${c.email}" style="color:var(--or2);text-decoration:none">${c.email||'—'}</a></td>
+        <td style="font-size:.82rem">${c.offreTitre||'—'}</td>
+        <td>${c.cv?`<a href="${c.cv}" target="_blank" style="color:var(--or);font-family:'Space Mono',monospace;font-size:.6rem">VOIR →</a>`:'—'}</td>
+        <td><span class="${sc}">${stLbl}</span></td>
+        <td>${fd(c.createdAt)}</td>
+        <td><div class="tda">
+          <button class="bval" onclick="voirMotiv('${id}','${(c.nom||'').replace(/'/g,"\\'")}','${(c.motiv||'').replace(/'/g,"\\'").replace(/\n/g,'\\n')}')">Motivation</button>
+          <button class="bval" onclick="marquerContacte('${id}')">✓ Contacté</button>
+          <button class="bref" onclick="archiverCandidature('${id}')">Archiver</button>
+          <button class="bdel" onclick="suppr('candidatures','${id}',chargerCandidatures)">Suppr.</button>
+        </div></td>`;
+      tb.appendChild(tr);
+    });
+  }catch(e){tb.innerHTML=`<tr><td colspan="7" class="evide">Erreur de chargement.</td></tr>`;}
+}
+
+window.voirMotiv=function(id,nom,motiv){
+  document.getElementById('modal-cand-nom').textContent=nom;
+  document.getElementById('modal-cand-motiv').textContent=motiv.replace(/\\n/g,'\n');
+  document.getElementById('modal-motiv').style.display='flex';
+};
+
+window.marquerContacte=async function(id){
+  try{
+    await updateDoc(doc(db,'candidatures',id),{statut:'contacte',contacteLe:serverTimestamp()});
+    toast('✓ Candidat marqué comme contacté.');chargerCandidatures();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+window.archiverCandidature=async function(id){
+  try{
+    await updateDoc(doc(db,'candidatures',id),{statut:'archive',archiveLe:serverTimestamp()});
+    toast('Candidature archivée.');chargerCandidatures();chargerStats();
+  }catch(e){toast('Erreur.',true);}
+};
+
+// Exposer les fonctions de chargement pour les callbacks
+window.chargerOffres=chargerOffres;window.chargerChallenges=chargerChallenges;
+window.chargerDocs=chargerDocs;window.chargerProduits=chargerProduits;
+window.chargerDemandes=chargerDemandes;window.chargerMembres=chargerMembres;
+window.chargerBadges=chargerBadges;window.chargerCandidatures=chargerCandidatures;
+window.chargerCommandes=chargerCommandes;
+</script>
+</body>
+</html>
